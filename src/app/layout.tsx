@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { seo } from "@/data/seo";
 import { Navbar } from "@/components/Navbar";
-import { About } from "./(about)/page";
+// import { About } from "./(about)/page";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,7 +57,7 @@ export default function RootLayout({
             <div className="absolute right-[calc(50%-640px)] top-0 bottom-0 w-[1px] bg-border hidden xl:block" />
               <Navbar />
                 {children}
-              <About />
+              {/* <About /> */}
         </div>
       </body>
     </html>
