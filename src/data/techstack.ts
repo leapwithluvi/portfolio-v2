@@ -275,3 +275,37 @@ export const techStack: TechStack[] = [
     url: "https://ollama.com/",
   },
 ];
+
+export interface Skill {
+  title: string;
+  category: TechCategory | TechCategory[];
+  icon: string; // lucide icon name or type
+  skills: string[];
+}
+
+export const skills: Skill[] = [
+  {
+    title: "Front-End",
+    category: "frontend",
+    icon: "LayoutPanelLeft",
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Bootstrap", "Framer Motion"],
+  },
+  {
+    title: "Back-End",
+    category: ["backend", "database", "library"],
+    icon: "Cpu",
+    skills: ["Node.js", "Express.js", "NestJS", "PostgreSQL", "MySQL", "Supabase", "Prisma"],
+  },
+  {
+    title: "AI & ML",
+    category: "ai_ml",
+    icon: "Network",
+    skills: ["Python", "TensorFlow", "PyTorch", "OpenCV", "Pandas", "NumPy"],
+  },
+  {
+    title: "Infrastructure",
+    category: "devops",
+    icon: "ShieldCheck",
+    skills: ["Git", "GitHub", "Vercel", "Railway", "Docker", "Postman"],
+  },
+];

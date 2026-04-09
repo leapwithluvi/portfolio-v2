@@ -1,72 +1,79 @@
 "use client"
-
+ 
 import { motion } from "motion/react";
-import { Sidebar } from "@/components/Sidebar";
+import { Workflow, Award, Calendar, MapPin, Briefcase } from "lucide-react";
 import { experiences, statistics } from "@/data/experience";
 import { ExperienceCard } from "@/components/ExperienceCard";
-import { BriefcaseBusiness } from "lucide-react";
-
+ 
 export const ExperienceSection = () => {
   return (
     <section
       id="experience"
-      className="relative w-full py-16"
+      className="relative flex flex-col justify-center items-center py-24 overflow-hidden"
     >
-      <div className="max-container flex flex-col md:flex-row items-center md:items-center h-full gap-12 md:gap-24 px-4 sm:px-6">
-        {/* sidebar kiri */}
-        <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <Sidebar num="03" title="Experience" />
-        </motion.div>
-
-        {/* Konten */}
-        <div className="flex flex-1 flex-col">
+      <div className="absolute inset-x-0 h-full max-w-[1280px] mx-auto bg-muted/30 dark:bg-muted/10 -z-10" />
+      <div className="max-container flex flex-col items-center gap-12">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center max-w-2xl px-4">
           <motion.div
-            className="flex flex-col gap-4 mb-8 items-center md:items-start w-full"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-2 mb-4 text-yellow-600 font-bold uppercase tracking-widest text-xs"
           >
-            <div className="flex flex-row items-center gap-4">
-              <BriefcaseBusiness className="text-yellow-600" size={40} />
-              <h2 className="md:text-6xl text-4xl font-serif font-bold">Experience</h2>
-            </div>
-
-            <motion.div className="md:ml-4 flex flex-row gap-8 md:gap-16 mt-10 justify-center md:justify-start flex-wrap">
-              {statistics.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="flex flex-col items-center"
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 * index }}
-                  viewport={{ once: true }}
-                >
-                  <span className="text-4xl font-serif font-bold text-foreground">
-                    {item.value}
-                  </span>
-                  <p className="text-sm font-serif md:text-2xl text-muted-foreground mt-2">
-                    {item.label}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div
-              className="mt-8"
-              initial={{ scale: 0.95, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <ExperienceCard data={experiences[0]} />
-            </motion.div>
+            <Workflow size={16} strokeWidth={1.5} />
+            <span>Industrial Experience</span>
           </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-6"
+          >
+            My Experience
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl px-4 text-justify md:text-center"
+          >
+            A combined look at my professional journey and educational milestones. From developing early web solutions to exploring modern AI applications.
+          </motion.p>
+        </div>
+ 
+        {/* Stats Summary Bento Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 w-full max-w-6xl px-4">
+          {statistics.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 * index }}
+              className="flex flex-col items-center text-center p-6 md:p-8 glass rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 h-full"
+            >
+              <span className="text-4xl md:text-5xl font-serif font-bold text-yellow-600">{item.value}</span>
+              <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mt-4 leading-relaxed">
+                {item.label}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+ 
+        <div className="w-full flex flex-col gap-6 px-4">
+          <div className="grid grid-cols-1 gap-6 w-full max-w-6xl mx-auto">
+            {experiences.map((exp, index) => (
+               <motion.div
+                 key={index}
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.4 + index * 0.1 }}
+               >
+                 <ExperienceCard data={exp} />
+               </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

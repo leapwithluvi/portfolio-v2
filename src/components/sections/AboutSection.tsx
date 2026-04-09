@@ -1,85 +1,151 @@
-"use client"
+"use client";
 
 import { motion } from "motion/react";
-import { UserRound } from "lucide-react";
-import { Sidebar } from "@/components/Sidebar";
+import { UserRound, Layout, Database, Terminal } from "lucide-react";
 import { profile } from "@/data/profile";
 import { GridPattern } from "@/components/ui/grid-pattern";
 
 export const AboutSection = () => {
   return (
     <section
-      className="flex justify-center items-center h-auto px-6 md:px-12 py-12 overflow-hidden"
       id="about"
+      className="relative flex flex-col justify-center items-center py-24 overflow-hidden"
     >
-      <GridPattern
-        width={30}
-        height={30}
-        x={-1}
-        y={-1}
-        strokeDasharray={"4 2"}
-        className="[mask-image:radial-gradient(450px_circle_at_center,white,transparent)]"
-      />
+      <div className="absolute inset-x-0 h-full max-w-[1280px] mx-auto overflow-hidden -z-10">
+        <GridPattern
+          width={30}
+          height={30}
+          x={-1}
+          y={-1}
+          strokeDasharray={"4 2"}
+          className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)] opacity-40"
+        />
+      </div>
 
-      <div className="max-container flex flex-col md:flex-row items-center h-full gap-12 md:gap-24 relative z-10 px-4 sm:px-6">
-        <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          {/* Sidebar Kiri */}
-          <Sidebar num="02" title="About" />
-        </motion.div>
-
-        {/* Konten */}
-        <motion.div
-          className="flex flex-col gap-6 text-justify flex-1"
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          {/* Judul */}
+      <div className="max-container flex flex-col items-center gap-16">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center max-w-2xl px-4">
           <motion.div
-            className="flex justify-center md:justify-start items-center gap-4 mb-8"
-            initial={{ opacity: 0, y: -30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            className="flex items-center gap-2 mb-4 text-yellow-600 font-bold uppercase tracking-widest text-xs"
           >
-            {/* Ikon User */}
-            <UserRound className="text-yellow-600" size={40} />
-            <h2 className="md:text-6xl text-4xl font-serif font-bold">
-              About Me
-            </h2>
+            <UserRound size={16} />
+            <span>Know Me Better</span>
           </motion.div>
 
-          {/* Subjudul */}
           <motion.h2
-            className="md:text-4xl text-2xl font-serif font-bold text-foreground"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-6"
           >
-            Hello, I&apos;m {profile.name}!
+            Behind the Code
           </motion.h2>
 
-          {/* Deskripsi */}
-          {[profile.about1, profile.about2].map((text, index) => (
-            <motion.p
-              key={index}
-              className="md:text-xl text-md font-serif text-muted-foreground leading-relaxed max-w-4xl"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              viewport={{ once: true }}
-            >
-              {text}
-            </motion.p>
-          ))}
-        </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg md:text-xl text-muted-foreground leading-relaxed"
+          >
+            I&apos;m a versatile developer who bridges the gap between complex
+            engineering and elegant design. Currently focusing on building
+            accessible, high-performance web applications.
+          </motion.p>
+        </div>
+
+        {/* Bento Grid Content */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full px-4">
+          {/* Main About Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            className="col-span-1 md:col-span-8 glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-6"
+          >
+            <h3 className="text-3xl font-serif font-bold text-foreground">
+              My Craft
+            </h3>
+            <p className="text-lg text-muted-foreground leading-relaxed text-justify">
+              {profile.about1}
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed text-justify">
+              {profile.about2}
+            </p>
+          </motion.div>
+
+          {/* Stats/Badges Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            className="col-span-1 md:col-span-4 glass p-8 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-8 relative overflow-hidden group"
+          >
+            <div className="flex flex-col items-center text-center relative z-10">
+              <span className="text-6xl font-serif font-bold text-yellow-600">
+                10+
+              </span>
+              <span className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mt-2">
+                Projects Completed
+              </span>
+            </div>
+            <div className="flex flex-col items-center text-center relative z-10">
+              <span className="text-6xl font-serif font-bold text-teal-600">
+                95%
+              </span>
+              <span className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mt-2">
+                Code Quality Score
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Skills Highlights */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="col-span-1 md:col-span-4 glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-4 items-center text-center"
+          >
+            <div className="p-4 bg-yellow-600/10 rounded-2xl text-yellow-600">
+              <Layout size={32} />
+            </div>
+            <h4 className="text-xl font-bold font-serif">UI/UX Fanatic</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {" "}
+              obsessed with pixel-perfect designs and smooth user flows.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="col-span-1 md:col-span-4 glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-4 items-center text-center"
+          >
+            <div className="p-4 bg-teal-600/10 rounded-2xl text-teal-600">
+              <Database size={32} />
+            </div>
+            <h4 className="text-xl font-bold font-serif">Fullstack Ready</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Building scalable backends and secure APIs with modern Node
+              architectures.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="col-span-1 md:col-span-4 glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-4 items-center text-center"
+          >
+            <div className="p-4 bg-indigo-600/10 rounded-2xl text-indigo-600">
+              <Terminal size={32} />
+            </div>
+            <h4 className="text-xl font-bold font-serif">Clean Code</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Writing maintainable, well-documented, and efficient TypeScript
+              code.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

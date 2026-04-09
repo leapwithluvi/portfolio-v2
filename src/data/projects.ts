@@ -19,10 +19,10 @@ export const projects: Project[] = [
       linkRepo: "https://github.com/leapwithluvi/library-management-system",
       srcImg: "/images/perpustakaan.png",
       imgAlt: "Library Management System",
-      stacks: ["Vite", "React", "Tailwind CSS", "Framer Motion", "Shadcn UI", "Express.js", "PostgreSQL", "Supabase", "Prisma", "TypeScript"],
+      stacks: ["Vite", "React", "Tailwind CSS", "Express.js", "Supabase", "Prisma", "TypeScript"],
     },
     {
-      nameProject: "Portfolio",
+      nameProject: "Portfolio V1 - Personal Website",
       typeProject: "Website",
       deskProject:
         "Portfolio is a personal website designed to showcase my projects, skills, and experience in web development. Built with Vite, React, Tailwind CSS, and Framer Motion, it features smooth animations, responsive design, and a clean modern interface.",
@@ -30,10 +30,10 @@ export const projects: Project[] = [
       linkRepo: "https://github.com/leapwithluvi/portfolio",
       srcImg: "/images/portfolio.png",
       imgAlt: "Portfolio",
-      stacks: ["Vite", "React", "Tailwind CSS", "Framer Motion", "Shadcn UI", "TypeScript"],
+      stacks: ["Vite", "React", "Tailwind CSS", "TypeScript"],
     },
     {
-      nameProject: "Express TypeScript Starter - Professional Backend Boilerplate",
+      nameProject: "Express TypeScript Starter",
       typeProject: "Backend / Boilerplate",
       deskProject:
         "A robust and secure boilerplate for building scalable RESTful APIs. It features a layered architecture, Express 5, TypeScript, Prisma, Zod validation, and industry-standard security practices like Helmet and Rate Limiting.",
@@ -41,10 +41,10 @@ export const projects: Project[] = [
       linkRepo: "https://github.com/leapwithluvi/express-typescript-starter",
       srcImg: "/images/backend.png",
       imgAlt: "Express TypeScript Starter",
-      stacks: ["Express.js", "Node.js", "PostgreSQL", "Prisma", "JWT", "Zod", "ESLint", "Prettier", "TypeScript"],
+      stacks: ["Express.js", "Node.js", "PostgreSQL", "Prisma", "TypeScript"],
     },
     {
-      nameProject: "Nexus AI - Conversational AI Platform",
+      nameProject: "Nexus AI",
       typeProject: "Website",
       deskProject:
         "Nexus AI is a lightweight yet powerful assistant designed for fast, intelligent, and private conversations. Built with a modern aesthetic, it provides a seamless chat experience while maintaining a professional and generic brand identity.",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
       linkRepo: "https://github.com/leapwithluvi/ai-chatbot",
       srcImg: "/images/nexusai.png",
       imgAlt: "Nexus AI",
-      stacks: ["Vite", "React", "Gemini API", "Tailwind CSS", "Shadcn UI", "Framer Motion", "Express.js", "PostgreSQL", "Prisma","TypeScript"],
+      stacks: ["Vite", "React", "Gemini API", "Tailwind CSS", "Express.js", "PostgreSQL", "Prisma", "TypeScript"],
     },
     {
       nameProject: "OSIS President Voting System",

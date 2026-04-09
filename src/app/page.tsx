@@ -1,38 +1,29 @@
 "use client"
-
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+ 
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProjectSection } from "@/components/sections/ProjectSection";
+import { CertificateSection } from "@/components/sections/CertificateSection";
 import { ContactSection } from "@/components/sections/ContactSection";
-
+ 
 export default function Home() {
   return (
-    <div className="flex flex-col">
-      <HeroSection />
+    <div className="flex flex-col min-h-screen">
       
-      <div className="max-container flex flex-col">
-        <div className="vertical-divider mx-auto" />
+      <main className="flex-1 flex flex-col pt-0">
+        <HeroSection />
+        
+        {/* Sections with breathable white space instead of rigid dividers */}
         <AboutSection />
-        
-        <div className="vertical-divider mx-auto" />
-        <ExperienceSection />
-        
-        <div className="vertical-divider mx-auto" />
         <SkillsSection />
-        
-        <div className="vertical-divider mx-auto" />
+        <ExperienceSection />
         <ProjectSection />
-        
-        <div className="vertical-divider mx-auto" />
+        <CertificateSection />
         <ContactSection />
-      </div>
-
-      <Footer />
+      </main>
+ 
     </div>
   );
 }
-

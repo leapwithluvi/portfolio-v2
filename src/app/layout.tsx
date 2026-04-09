@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { seo } from "@/data/seo";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,14 +65,15 @@ export default function RootLayout({
       </head>
       <body className="antialiased min-h-screen">
         <div className="relative flex min-h-screen flex-col bg-background text-foreground transition-colors duration-300">
-          {/* Global Vertical Dividers */}
-          <div className="absolute left-[calc(55%-720px)] top-0 bottom-0 w-[1px] bg-border/50 hidden 2xl:block pointer-events-none z-0" />
-          <div className="absolute right-[calc(55%-720px)] top-0 bottom-0 w-[1px] bg-border/50 hidden 2xl:block pointer-events-none z-0" />
+          {/* Global Vertical Dividers - Synced with 1280px Container */}
+          <div className="absolute left-[calc(50%-640px)] top-0 bottom-0 w-[1px] bg-border/50 hidden xl:block pointer-events-none z-0" />
+          <div className="absolute right-[calc(50%-640px)] top-0 bottom-0 w-[1px] bg-border/50 hidden xl:block pointer-events-none z-0" />
           
           <Navbar />
           <main className="flex-1">
             {children}
           </main>
+          <Footer />
         </div>
       </body>
     </html>
