@@ -30,45 +30,58 @@ export default function JsonContactCard() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-12 mb-16 font-mono text-[13px] group text-left">
-      {/* Integrated Terminal Container */}
-      <div className="bg-white/40 dark:bg-zinc-900/90 backdrop-blur-md rounded-3xl border border-slate-200/60 dark:border-border/50 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+    <div className="w-full max-w-2xl mx-auto mt-8 sm:mt-12 mb-12 sm:mb-16 font-mono text-[10px] sm:text-[13px] group text-left relative">
+      {/* Integrated Terminal Container - Theme Responsive */}
+      <div 
+        className="rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative"
+        style={{ backgroundColor: "var(--terminal-bg)" } as React.CSSProperties}
+      >
         
         {/* Terminal Header */}
-        <div className="px-4 py-3 sm:px-5 sm:py-4 flex items-center justify-between border-b border-slate-200/40 dark:border-border/30 bg-white/20 dark:bg-white/5">
+        <div 
+          className="px-3 py-2.5 sm:px-5 sm:py-4 flex items-center justify-between border-b border-slate-100 dark:border-white/5"
+          style={{ backgroundColor: "var(--terminal-header)" } as React.CSSProperties}
+        >
           <div className="flex items-center gap-2">
-            <div className="flex gap-1.5 md:gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-red-500/80" />
-              <div className="w-2.5 h-2.5 rounded-full bg-slate-200 dark:bg-yellow-500/80" />
-              <div className="w-2.5 h-2.5 rounded-full bg-slate-100 dark:bg-green-500/80" />
+            <div className="flex gap-1 sm:gap-2">
+              <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-slate-200 dark:bg-red-500/80" />
+              <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-slate-100 dark:bg-yellow-500/80" />
+              <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-slate-50 dark:bg-green-500/80" />
             </div>
-            <div className="flex items-center gap-2 ml-4 text-slate-400 dark:text-muted-foreground text-[9px] uppercase tracking-[0.3em] font-bold">
-              <Terminal size={12} className="text-sky-500 dark:text-yellow-600" />
-              <span>contact.json</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 ml-2 sm:ml-4 text-slate-400 dark:text-zinc-500 text-[8px] sm:text-[9px] uppercase tracking-[0.2em] sm:tracking-[0.3em] font-bold">
+              <Terminal size={10} className="text-sky-500 dark:text-yellow-600 sm:w-[12px] sm:h-[12px]" />
+              <span className="truncate max-w-[100px] sm:max-w-none">contact.json</span>
             </div>
           </div>
           <button
             onClick={copyToClipboard}
-            className="p-2 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-lg transition-all text-slate-400 dark:text-muted-foreground group-hover:text-sky-600 dark:group-hover:text-yellow-600"
-            title="Copy JSON"
+            className="p-1.5 sm:p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-all text-slate-400 dark:text-zinc-500 hover:text-sky-600 dark:hover:text-yellow-500"
+            aria-label="Copy JSON"
           >
-            {copied ? <Check size={16} className="text-emerald-500 dark:text-green-500" /> : <Copy size={16} />}
+            {copied ? <Check size={14} className="text-emerald-500 sm:w-[16px] sm:h-[16px]" /> : <Copy size={14} className="sm:w-[16px] sm:h-[16px]" />}
           </button>
         </div>
 
         {/* Code Area */}
-        <div className="flex relative transition-all duration-700">
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.02] to-emerald-500/[0.02] dark:from-yellow-600/[0.02] dark:to-transparent pointer-events-none" />
+        <div 
+          className="flex relative"
+          style={{ backgroundColor: "var(--terminal-bg)" } as React.CSSProperties}
+        >
+          {/* Subtle decoration for Dark Mode */}
+          <div className="absolute inset-0 dark:bg-gradient-to-br dark:from-yellow-600/[0.03] dark:to-transparent pointer-events-none" />
           
-          {/* Line Numbers Column - Hidden on mobile for extra space */}
-          <div className="bg-slate-100/20 dark:bg-zinc-900/40 px-4 py-8 text-right text-slate-300 dark:text-zinc-600 select-none border-r border-slate-100/50 dark:border-border/30 hidden sm:block min-w-[3.5rem]">
+          {/* Line Numbers Column */}
+          <div 
+            className="px-3 sm:px-4 py-6 sm:py-8 text-right text-slate-200 dark:text-zinc-700 select-none border-r border-slate-50 dark:border-white/5 hidden md:block min-w-[3rem]"
+            style={{ backgroundColor: "var(--terminal-gutter)" } as React.CSSProperties}
+          >
             {Array.from({ length: 33 }).map((_, i) => (
               <div key={i} className="leading-[1.8]">{i + 1}</div>
             ))}
           </div>
 
           <div className="p-4 sm:p-8 md:p-10 overflow-x-auto min-w-0 flex-1">
-            <pre className="text-slate-600 dark:text-foreground/90 whitespace-pre leading-[1.8] text-left text-[10px] sm:text-[13px]">
+            <pre className="text-slate-600 dark:text-zinc-300 whitespace-pre leading-[1.8] text-left">
             <span className="text-slate-400 dark:text-blue-400">{"{"}</span>
             {"\n  "}<span className="text-sky-600 dark:text-purple-400">&quot;name&quot;</span>: <span className="text-emerald-600 dark:text-yellow-500">&quot;{contactJsonData.name}&quot;</span>,
             {"\n  "}<span className="text-sky-600 dark:text-purple-400">&quot;role&quot;</span>: <span className="text-emerald-600 dark:text-yellow-500">&quot;{contactJsonData.role}&quot;</span>,
@@ -95,18 +108,19 @@ export default function JsonContactCard() {
                     {chunk.map((item, i) => (
                       <React.Fragment key={item}>
                         <span className="text-emerald-600 dark:text-yellow-500">&quot;{item}&quot;</span>
-                        {(i < chunk.length - 1 || chunkIdx < chunks.length - 1) && <span className="text-slate-300 dark:text-foreground/50">, </span>}
+                        {(i < chunk.length - 1 || chunkIdx < chunks.length - 1) && <span className="text-slate-300 dark:text-zinc-600">, </span>}
                       </React.Fragment>
                     ))}
                   </React.Fragment>
                 ))}
                 {"\n    "}<span className="text-slate-400 dark:text-blue-400">]</span>
-                {idx < arr.length - 1 && <span className="text-slate-300 dark:text-foreground/50">,</span>}
+                {idx < arr.length - 1 && <span className="text-slate-300 dark:text-zinc-600">,</span>}
               </React.Fragment>
             ))}
             {"\n  "}<span className="text-slate-400 dark:text-blue-400">{"}"}</span>
             {"\n"}<span className="text-slate-400 dark:text-blue-400">{"}"}</span>
-          </pre>
+            </pre>
+          </div>
         </div>
 
         {/* Floating Animation */}
@@ -116,14 +130,13 @@ export default function JsonContactCard() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="absolute bottom-6 right-8 bg-sky-600 dark:bg-green-500 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-xl z-30"
+              className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 bg-sky-600 dark:bg-yellow-600 text-white dark:text-zinc-950 text-[9px] sm:text-[10px] font-bold px-3 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-22l z-30"
             >
               JSON COPIED!
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </div>
     </div>
   );
 }

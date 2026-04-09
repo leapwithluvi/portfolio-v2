@@ -5,7 +5,7 @@
 
 export const footerData = {
   brand: {
-    tagline: "Fullstack Developer pushing the boundaries of web engineering and AI integration. Crafting premium digital experiences with precision.",
+    tagline: "Fullstack Web Developer pushing the boundaries of web engineering and AI integration. Crafting premium digital experiences with precision.",
   },
   experience: {
     title: "Experience",

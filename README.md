@@ -28,13 +28,6 @@ If you like this template, feel free to deploy your own version for **FREE**!
 
 *Don't forget to give a ⭐ if you use this!*
 
-<details><summary>📸 Project Screenshots</summary>
-
-![Home Checkpoint](./public/images/portfoliov2.png)
-*(Screenshots are updated periodically as the design evolves)*
-
-</details>
-
 ## 📖 Table of Contents
 
 <details><summary>Table of Contents</summary>
@@ -54,7 +47,7 @@ If you like this template, feel free to deploy your own version for **FREE**!
 
 ## 📝 Description
 
-**Luvi Aprilyansyah Gabriel — Personal Portfolio V2** is the evolution of my technical showcase, rebuilt from the ground up using **Next.js 15**, **React 19**, and **Tailwind CSS**. It serves as a modern, high-performance portal for my work as a **Fullstack Developer & AI/ML Enthusiast**.
+**Luvi Aprilyansyah Gabriel — Personal Portfolio V2** is the evolution of my technical showcase, rebuilt from the ground up using **Next.js 15**, **React 19**, and **Tailwind CSS**. It serves as a modern, high-performance portal for my work as a **Fullstack Web Developer & AI/ML Enthusiast**.
 
 Designed with a "Data-First" philosophy, this template separates logic from content, allowing for rapid updates and seamless project management while maintaining a premium, enterprise-grade aesthetic with advanced glassmorphism and fluid animations.
 
@@ -164,6 +157,6 @@ This project is licensed under the **MIT License** See the [LICENSE](LICENSE) fi
 
 ## 🚀 Let's Connect
 
-I'm currently open to **Junior Developer opportunities**, freelance projects, and AI/ML collaborations. If you're looking for a passionate Fullstack Developer who loves building scalable and beautiful products, let's talk!
+I'm currently open to **Junior Developer opportunities**, freelance projects, and AI/ML collaborations. If you're looking for a passionate Fullstack Web Developer who loves building scalable and beautiful products, let's talk!
 
 > Built with by **Luvi Aprilyansyah Gabriel** — Fullstack Web Developer & AI/ML Enthusiast
