@@ -53,6 +53,11 @@ export const metadata: Metadata = {
     images: [seo.image],
     creator: seo.twitterHandle,
   },
+  icons: {
+    icon: seo.icon,
+    shortcut: seo.icon,
+    apple: seo.icon,
+  },
   robots: {
     index: true,
     follow: true,

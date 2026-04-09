@@ -19,6 +19,7 @@ export interface Experience {
 
 
 export const statistics = [
+  { label: "Years of Crafting Code", value: "3" },
   { label: "Months Internship Experience", value: "6" },
   { label: "Years of Learning to Code", value: "2+" },
   { label: "Projects Published", value: "6+" },

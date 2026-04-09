@@ -20,6 +20,16 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       infinite: false,
     });
 
+    // Stop lenis immediately to prevent scrolling during preloader
+    lenis.stop();
+
+    // Start lenis when preloader is finished
+    const handleLoaderFinished = () => {
+      lenis.start();
+    };
+
+    window.addEventListener("loader-finished", handleLoaderFinished);
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -29,6 +39,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       lenis.destroy();
+      window.removeEventListener("loader-finished", handleLoaderFinished);
     };
   }, []);
 

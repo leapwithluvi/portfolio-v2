@@ -15,8 +15,6 @@ export const profile = {
     "a Fullstack Developer specializing in building high-performance, intelligent web applications with a focus on seamless user experiences.",
   ctaWork: "View My Work",
   ctaResume: "Resume",
-  experienceYears: 3,
-  experienceLabel: "Years of Craft",
   greetings: [
     "Hello",
     "Halo",

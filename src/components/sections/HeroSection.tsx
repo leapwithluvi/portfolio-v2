@@ -125,21 +125,6 @@ export const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
             </div>
           </div>
-
-          {/* Floating Minimalist Stat - RE-POSITIONED INSIDE BOUNDARIES */}
-          <motion.div
-            className="absolute bottom-4 right-4 flex flex-col p-4 glass rounded-2xl shadow-xl z-20 backdrop-blur-md"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1 }}
-          >
-            <span className="text-3xl font-bold text-yellow-600">
-              {profile.experienceYears}+
-            </span>
-            <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">
-              {profile.experienceLabel}
-            </span>
-          </motion.div>
         </motion.div>
       </div>
     </section>

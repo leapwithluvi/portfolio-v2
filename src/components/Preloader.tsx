@@ -17,6 +17,27 @@ export default function Preloader() {
   }, []);
 
   useEffect(() => {
+    const preventDefault = (e: Event) => e.preventDefault();
+    
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+      // Block wheel and touch scroll
+      window.addEventListener("wheel", preventDefault, { passive: false });
+      window.addEventListener("touchmove", preventDefault, { passive: false });
+    } else {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("wheel", preventDefault);
+      window.removeEventListener("touchmove", preventDefault);
+    }
+    
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("wheel", preventDefault);
+      window.removeEventListener("touchmove", preventDefault);
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
     // Calculate target percentage based on current word index
     const targetCount = Math.floor(((index + 1) / words.length) * 100);
     
@@ -46,6 +67,17 @@ export default function Preloader() {
       clearInterval(interval);
     };
   }, [index, words.length]);
+
+  // Dispatch event when loading is complete
+  useEffect(() => {
+    if (!isLoading) {
+      // Small delay to ensure the exit animation is nearly finished
+      const timer = setTimeout(() => {
+        window.dispatchEvent(new Event("loader-finished"));
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
 
   // Path for the elastic "tail" curve below the DIV
   const initialPath = `M0 0 L${dimension.width} 0 Q${dimension.width / 2} 200 0 0 Z`;

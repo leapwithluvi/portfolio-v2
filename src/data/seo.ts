@@ -10,5 +10,6 @@ export const seo = {
     author: "Luvi Aprilyansyah Gabriel",
     url: "https://luvi.my.id",
     image: "/images/pp.jpeg",
+    icon: "/images/icon.png",
     twitterHandle: "@itsluvi13",
 }

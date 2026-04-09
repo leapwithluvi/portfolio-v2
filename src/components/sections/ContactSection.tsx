@@ -23,11 +23,11 @@ export const ContactSection = () => {
             <span>Open for Collaboration</span>
           </div>
           
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground mb-6">
+          <h2 className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground mb-6 leading-tight">
             Let&apos;s Build the Future Together.
           </h2>
  
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl text-justify md:text-center">
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl text-center">
             Whether you have a question or just want to say hi, my inbox is always open. 
             I&apos;m currently looking for new opportunities.
           </p>
@@ -55,14 +55,14 @@ export const ContactSection = () => {
           </motion.div>
 
           {/* Social Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl font-bold">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 w-full max-w-3xl font-bold">
             {socials.filter(s => s.name !== "Email").slice(0, 4).map((social) => (
               <Magnetic key={social.name}>
                 <a 
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-4 glass rounded-2xl hover:bg-muted transition-all group w-full h-full"
+                  className="flex items-center justify-center gap-2 p-3 md:p-4 glass rounded-xl md:rounded-2xl hover:bg-muted transition-all group w-full h-full"
                 >
                   {social.icon && (
                     <div 

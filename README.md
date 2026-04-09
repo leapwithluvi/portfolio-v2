@@ -126,11 +126,13 @@ Personalize this portfolio in minutes by editing the files in `src/data/`:
 
 | File | Content |
 | :--- | :--- |
-| `profile.ts` | Your name, professional bio, and branding. |
+| `profile.ts` | Name, Bio, and **Preloader Greetings** sequence. |
+| `seo.ts` | **Search Engine Optimization**, OG Tags, and **Favicon**. |
+| `experience.ts`| Work history and **Sticky-Scroll Statistics**. |
 | `navigation.ts`| Unified control for Navbar and Footer links. |
-| `projects.ts` | Your showcase projects with images and tags. |
+| `projects.ts` | Showcase projects with images and tags. |
 | `socials.ts` | Social media URLs and official brand icons. |
-| `techstack.ts` | Detailed breakdown of your technical skills. |
+| `techstack.ts` | Detailed breakdown of technical skills. |
 | `footer.ts` | Footer tagline and operational status text. |
 
 ## 🚀 Featured Projects

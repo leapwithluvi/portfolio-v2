@@ -31,42 +31,44 @@ export default function JsonContactCard() {
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-12 mb-16 font-mono text-[13px] group text-left">
-      {/* Terminal Header - Minimalist SaaS Style */}
-      <div className="bg-white/40 dark:bg-zinc-900/90 backdrop-blur-md rounded-t-2xl border-x border-t border-slate-200/60 dark:border-border/50 px-5 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="flex gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-red-500/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-200 dark:bg-yellow-500/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-100 dark:bg-green-500/80" />
-          </div>
-          <div className="flex items-center gap-2 ml-4 text-slate-400 dark:text-muted-foreground text-[9px] uppercase tracking-[0.3em] font-bold">
-            <Terminal size={12} className="text-sky-500 dark:text-yellow-600" />
-            <span>contact.json</span>
-          </div>
-        </div>
-        <button
-          onClick={copyToClipboard}
-          className="p-2 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-lg transition-all text-slate-400 dark:text-muted-foreground group-hover:text-sky-600 dark:group-hover:text-yellow-600"
-          title="Copy JSON"
-        >
-          {copied ? <Check size={16} className="text-emerald-500 dark:text-green-500" /> : <Copy size={16} />}
-        </button>
-      </div>
-
-      {/* Code Area - Modern High-End Glass */}
-      <div className="bg-slate-50/30 dark:bg-black/60 backdrop-blur-2xl border border-slate-200/60 dark:border-border/50 rounded-b-2xl p-0 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-none relative overflow-hidden flex transition-all duration-700">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.02] to-emerald-500/[0.02] dark:from-yellow-600/[0.02] dark:to-transparent pointer-events-none" />
+      {/* Integrated Terminal Container */}
+      <div className="bg-white/40 dark:bg-zinc-900/90 backdrop-blur-md rounded-3xl border border-slate-200/60 dark:border-border/50 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
         
-        {/* Line Numbers Column - Ultra Minimal */}
-        <div className="bg-slate-100/20 dark:bg-zinc-900/40 px-4 py-8 text-right text-slate-300 dark:text-zinc-600 select-none border-r border-slate-100/50 dark:border-border/30 hidden sm:block min-w-[3.5rem]">
-          {Array.from({ length: 33 }).map((_, i) => (
-            <div key={i} className="leading-[1.8]">{i + 1}</div>
-          ))}
+        {/* Terminal Header */}
+        <div className="px-4 py-3 sm:px-5 sm:py-4 flex items-center justify-between border-b border-slate-200/40 dark:border-border/30 bg-white/20 dark:bg-white/5">
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1.5 md:gap-2">
+              <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-red-500/80" />
+              <div className="w-2.5 h-2.5 rounded-full bg-slate-200 dark:bg-yellow-500/80" />
+              <div className="w-2.5 h-2.5 rounded-full bg-slate-100 dark:bg-green-500/80" />
+            </div>
+            <div className="flex items-center gap-2 ml-4 text-slate-400 dark:text-muted-foreground text-[9px] uppercase tracking-[0.3em] font-bold">
+              <Terminal size={12} className="text-sky-500 dark:text-yellow-600" />
+              <span>contact.json</span>
+            </div>
+          </div>
+          <button
+            onClick={copyToClipboard}
+            className="p-2 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-lg transition-all text-slate-400 dark:text-muted-foreground group-hover:text-sky-600 dark:group-hover:text-yellow-600"
+            title="Copy JSON"
+          >
+            {copied ? <Check size={16} className="text-emerald-500 dark:text-green-500" /> : <Copy size={16} />}
+          </button>
         </div>
 
-        {/* Content Area */}
-        <div className="p-8 md:p-10 overflow-x-auto flex-1">
-          <pre className="text-slate-600 dark:text-foreground/90 whitespace-pre leading-[1.8] text-left">
+        {/* Code Area */}
+        <div className="flex relative transition-all duration-700">
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.02] to-emerald-500/[0.02] dark:from-yellow-600/[0.02] dark:to-transparent pointer-events-none" />
+          
+          {/* Line Numbers Column - Hidden on mobile for extra space */}
+          <div className="bg-slate-100/20 dark:bg-zinc-900/40 px-4 py-8 text-right text-slate-300 dark:text-zinc-600 select-none border-r border-slate-100/50 dark:border-border/30 hidden sm:block min-w-[3.5rem]">
+            {Array.from({ length: 33 }).map((_, i) => (
+              <div key={i} className="leading-[1.8]">{i + 1}</div>
+            ))}
+          </div>
+
+          <div className="p-4 sm:p-8 md:p-10 overflow-x-auto min-w-0 flex-1">
+            <pre className="text-slate-600 dark:text-foreground/90 whitespace-pre leading-[1.8] text-left text-[10px] sm:text-[13px]">
             <span className="text-slate-400 dark:text-blue-400">{"{"}</span>
             {"\n  "}<span className="text-sky-600 dark:text-purple-400">&quot;name&quot;</span>: <span className="text-emerald-600 dark:text-yellow-500">&quot;{contactJsonData.name}&quot;</span>,
             {"\n  "}<span className="text-sky-600 dark:text-purple-400">&quot;role&quot;</span>: <span className="text-emerald-600 dark:text-yellow-500">&quot;{contactJsonData.role}&quot;</span>,
@@ -121,6 +123,7 @@ export default function JsonContactCard() {
           )}
         </AnimatePresence>
       </div>
+    </div>
     </div>
   );
 }
