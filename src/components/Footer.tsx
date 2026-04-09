@@ -98,7 +98,7 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-6 mb-3 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 text-xs text-muted-foreground">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-xs text-foreground/70">
             <p>&copy; {currentYear} {profile.name}. All Rights Reserved.</p>
             <span className="hidden md:block h-4 w-px bg-border" />
             <p>{footerData.bottom.creditText}</p>

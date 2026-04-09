@@ -20,8 +20,15 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       infinite: false,
     });
 
-    // Stop lenis immediately to prevent scrolling during preloader
-    lenis.stop();
+    // Only stop lenis if we are on the home page where the preloader is active
+    if (window.location.pathname === "/") {
+      lenis.stop();
+      // Force scroll to top on refresh and clean URL hash for better UX with Preloader
+      if (window.location.hash) {
+        window.scrollTo(0, 0);
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+    }
 
     // Start lenis when preloader is finished
     const handleLoaderFinished = () => {

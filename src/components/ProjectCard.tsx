@@ -85,6 +85,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ data }) => {
                 rel="noopener noreferrer"
                 className="p-3 bg-foreground text-background rounded-full hover:bg-yellow-600 hover:text-white transition-all duration-300 flex items-center justify-center relative z-10"
                 title="Visit Repository"
+                aria-label={`Visit ${nameProject} GitHub Repository`}
               >
                 <svg 
                   viewBox="0 0 24 24" 

@@ -49,7 +49,7 @@ export const Navbar: React.FC = () => {
         >
           {/* Logo */}
           <Magnetic>
-            <a href="#home" className="text-xl font-serif font-bold tracking-tighter text-foreground hover:scale-105 transition-all outline-none">
+            <a href="/#home" className="text-xl font-serif font-bold tracking-tighter text-foreground hover:scale-105 transition-all outline-none">
               {profile.logoName}<span className="text-yellow-600">.</span>
             </a>
           </Magnetic>

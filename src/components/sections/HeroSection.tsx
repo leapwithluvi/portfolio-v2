@@ -119,7 +119,8 @@ export const HeroSection = () => {
                 src={profile.image}
                 alt={profile.name}
                 fill
-                sizes="(max-width: 768px) 280px, (max-width: 1024px) 320px, 360px"
+                quality={85}
+                sizes="(max-width: 768px) 280px, 400px"
                 className="w-full h-full object-cover rounded-[2rem] filter brightness-95 grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 priority
               />

@@ -2,12 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { usePathname } from "next/navigation";
 import { profile } from "@/data/profile";
 
 export default function Preloader() {
+  const pathname = usePathname();
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const [isLoading, setIsLoading] = useState(true);
+
+  // If not on home page, don't render preloader at all
+  if (pathname !== "/") return null;
+
   const [count, setCount] = useState(0);
 
   const words = profile.greetings;
@@ -60,7 +66,7 @@ export default function Preloader() {
     
     const wordsTimer = setTimeout(() => {
       setIndex(index + 1);
-    }, index === 0 ? 1000 : 150); // First word stays longer, others are fast
+    }, index === 0 ? 600 : 100); // More aggressive: 600ms first word, 100ms others
 
     return () => {
       clearTimeout(wordsTimer);
