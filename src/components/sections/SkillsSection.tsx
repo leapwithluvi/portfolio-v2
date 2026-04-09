@@ -33,14 +33,22 @@ export const SkillsSection = () => {
       id="skills"
       className="relative flex flex-col justify-center items-center py-24 overflow-hidden"
     >
-      <div className="absolute inset-x-0 h-full max-w-[1088px] mx-auto overflow-hidden -z-10">
-        <GridPattern
-          width={45}
-          height={45}
-          x={1}
-          y={1}
-          className="[mask-image:radial-gradient(ellipse_at_center,white_30%,transparent_90%)] stroke-gray-900/10 dark:stroke-white/10"
-        />
+      {/* Background Grid Pattern - Consistent with Hero */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div 
+          className="max-w-[1280px] mx-auto h-full relative"
+          style={{
+            maskImage: 'radial-gradient(circle at center, black 0%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(circle at center, black 0%, transparent 80%)',
+          }}
+        >
+          <GridPattern
+            width={40}
+            height={40}
+            strokeDasharray={"4 4"}
+            className="fill-foreground/2 stroke-foreground/15 opacity-50"
+          />
+        </div>
       </div>
  
       <div className="max-container flex flex-col items-center gap-12">
@@ -85,7 +93,7 @@ export const SkillsSection = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 }}
-                className="glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-6 group hover:translate-y-[-4px] transition-all duration-300 border border-border/50"
+                className="glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-6 group hover:translate-y-[-4px] transition-all duration-300 border border-border/50 overflow-hidden"
               >
                 <div className={`p-4 rounded-2xl w-fit flex items-center justify-center transition-all duration-500 group-hover:scale-110 ${
                   index % 2 === 0 ? "bg-yellow-600/5 text-yellow-600 border border-yellow-600/10" : "bg-teal-600/5 text-teal-600 border border-teal-600/10"
@@ -133,8 +141,8 @@ export const SkillsSection = () => {
                   key={`m1-${idx}`}
                   className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border border-border/50 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 hover:scale-105 transition-all duration-500 cursor-default"
                 >
-                  <img src={stack.logo} alt={stack.name} className="w-8 h-8 object-contain" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-foreground">{stack.name}</span>
+                  <img src={stack.logo} alt={stack.name} className="w-8 h-8 object-contain shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-foreground truncate max-w-[120px]">{stack.name}</span>
                 </div>
               ))}
             </motion.div>
@@ -157,8 +165,8 @@ export const SkillsSection = () => {
                   key={`m2-${idx}`}
                   className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border border-border/50 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 hover:scale-105 transition-all duration-500 cursor-default"
                 >
-                  <img src={stack.logo} alt={stack.name} className="w-8 h-8 object-contain" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-foreground">{stack.name}</span>
+                  <img src={stack.logo} alt={stack.name} className="w-8 h-8 object-contain shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-foreground truncate max-w-[120px]">{stack.name}</span>
                 </div>
               ))}
             </motion.div>

@@ -1,18 +1,11 @@
 "use client"
  
 import { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X, ChevronRight } from "lucide-react";
+import { Moon, Sun, Menu, X, ChevronRight, Search } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { profile } from "@/data/profile";
- 
-const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#work" },
-  { name: "Degrees", href: "#certificates" },
-];
+import { navLinks } from "@/data/navigation";
+import Magnetic from "@/components/ui/Magnetic";
  
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -37,6 +30,10 @@ export const Navbar: React.FC = () => {
       localStorage.setItem("theme", "light");
     }
   };
+
+  const handleOpenPalette = () => {
+    window.dispatchEvent(new CustomEvent("open-command-palette"));
+  };
  
   return (
     <>
@@ -51,36 +48,50 @@ export const Navbar: React.FC = () => {
           animate={{ y: 0, opacity: 1 }}
         >
           {/* Logo */}
-          <a href="#home" className="text-xl font-serif font-bold tracking-tighter text-foreground hover:scale-105 transition-all outline-none">
-            {profile.logoName}<span className="text-yellow-600">.</span>
-          </a>
+          <Magnetic>
+            <a href="#home" className="text-xl font-serif font-bold tracking-tighter text-foreground hover:scale-105 transition-all outline-none">
+              {profile.logoName}<span className="text-yellow-600">.</span>
+            </a>
+          </Magnetic>
   
           <div className="h-6 w-px bg-border hidden md:block" />
   
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all"
-              >
-                {link.name}
-              </a>
+              <Magnetic key={link.name}>
+                <a
+                  href={link.href}
+                  className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all px-2 py-1"
+                >
+                  {link.name}
+                </a>
+              </Magnetic>
             ))}
           </div>
   
           <div className="h-6 w-px bg-border hidden lg:block" />
   
           {/* Socials & Theme Toggle */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full text-foreground hover:bg-muted transition-all"
-              aria-label="Toggle Theme"
-            >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+          <div className="flex items-center gap-2">
+            <Magnetic>
+              <button
+                onClick={handleOpenPalette}
+                className="p-2 rounded-full text-foreground hover:bg-muted transition-all"
+                aria-label="Open Command Palette"
+              >
+                <Search size={18} />
+              </button>
+            </Magnetic>
+            <Magnetic>
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full text-foreground hover:bg-muted transition-all"
+                aria-label="Toggle Theme"
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+            </Magnetic>
             
             {/* Mobile Menu Toggle */}
             <button

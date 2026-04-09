@@ -1,10 +1,19 @@
 "use client"
- 
-import { motion } from "motion/react";
-import { Award, ExternalLink, Calendar } from "lucide-react";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Award, ExternalLink, Calendar, Folders } from "lucide-react";
 import { certificates } from "@/data/certificates";
  
+const categories = ["All", ...Array.from(new Set(certificates.map((c) => c.category)))];
+
 export const CertificateSection = () => {
+  const [activeTab, setActiveTab] = useState<string>("All");
+
+  const filteredCertificates = activeTab === "All"
+    ? certificates
+    : certificates.filter(c => c.category === activeTab);
+
   return (
     <section
       id="certificates"
@@ -41,69 +50,100 @@ export const CertificateSection = () => {
             A collection of my validated expertise from global industry leaders, spanning across Cloud Computing, AI, and Fullstack Engineering.
           </motion.p>
         </div>
+
+        {/* Tab Navigation Pill-style */}
+        <motion.div 
+          className="flex flex-wrap items-center justify-center p-2 gap-2 bg-muted/30 dark:bg-muted/10 rounded-full border border-border/50 glass animate-in fade-in duration-500"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          {categories.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
+                activeTab === tab 
+                  ? "bg-yellow-600 text-white shadow-lg shadow-yellow-600/20" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </motion.div>
  
         {/* Certification Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4">
-          {certificates.map((cert, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
-              className="group glass p-8 rounded-[2rem] border border-border/50 shadow-lg hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 overflow-hidden relative"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-600/5 blur-3xl -z-10 group-hover:bg-yellow-600/10 transition-colors" />
-              
-              <div className="flex flex-col gap-6 h-full">
-                {/* Issuer Logo */}
-                <div className="flex justify-between items-start">
-                  <div className="p-3 bg-white dark:bg-zinc-800 rounded-xl border border-border/50 shadow-md">
-                    <img src={cert.issuerLogo} alt={cert.issuer} className="w-8 h-8 object-contain" />
-                  </div>
-                  <div className="px-3 py-1 bg-yellow-600/10 text-yellow-600 text-[10px] font-bold uppercase tracking-widest rounded-full border border-yellow-600/20">
-                    {cert.category}
-                  </div>
-                </div>
- 
-                {/* Content */}
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-serif font-bold text-foreground leading-tight group-hover:text-yellow-600 transition-colors">
-                    {cert.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-widest">
-                    <span>{cert.issuer}</span>
-                  </div>
-                </div>
- 
-                {/* Details Footer */}
-                <div className="mt-auto pt-6 flex flex-col gap-6 border-t border-border/50">
-                  <div className="flex flex-wrap gap-1.5">
-                    {cert.skills.map(skill => (
-                      <span key={skill} className="px-2 py-0.5 bg-muted/50 text-[10px] font-bold rounded-md text-muted-foreground uppercase tracking-tighter">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+        <div className="w-full px-4">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
+            layout
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredCertificates.map((cert, index) => (
+                <motion.div
+                  key={cert.title}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                  className="group glass p-8 rounded-[2rem] border border-border/50 shadow-lg hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 overflow-hidden relative"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-600/5 blur-3xl -z-10 group-hover:bg-yellow-600/10 transition-colors" />
                   
-                  <div className="flex justify-between items-center">
-                    <div className="text-[10px] uppercase font-bold text-muted-foreground/60 flex items-center gap-1.5">
-                      <Calendar size={12} className="text-yellow-600" />
-                      {cert.date}
+                  <div className="flex flex-col gap-6 h-full">
+                    {/* Issuer Logo */}
+                    <div className="flex justify-between items-start">
+                      <div className="p-3 bg-white dark:bg-zinc-800 rounded-xl border border-border/50 shadow-md">
+                        <img src={cert.issuerLogo} alt={cert.issuer} className="w-8 h-8 object-contain" />
+                      </div>
+                      <div className="px-3 py-1 bg-yellow-600/10 text-yellow-600 text-[10px] font-bold uppercase tracking-widest rounded-full border border-yellow-600/20">
+                        {cert.category}
+                      </div>
                     </div>
-                    <a
-                      href={cert.credentialUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-bold text-foreground hover:text-yellow-600 transition-colors"
-                    >
-                      Verify
-                      <ExternalLink size={14} />
-                    </a>
+    
+                    {/* Content */}
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-xl font-serif font-bold text-foreground leading-tight group-hover:text-yellow-600 transition-colors">
+                        {cert.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-widest">
+                        <span>{cert.issuer}</span>
+                      </div>
+                    </div>
+    
+                    {/* Details Footer */}
+                    <div className="mt-auto pt-6 flex flex-col gap-6 border-t border-border/50">
+                      <div className="flex flex-wrap gap-1.5">
+                        {cert.skills.map(skill => (
+                          <span key={skill} className="px-2 py-0.5 bg-muted/50 text-[10px] font-bold rounded-md text-muted-foreground uppercase tracking-tighter">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <div className="text-[10px] uppercase font-bold text-muted-foreground/60 flex items-center gap-1.5">
+                          <Calendar size={12} className="text-yellow-600" />
+                          {cert.date}
+                        </div>
+                        <a
+                          href={cert.credentialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-xs font-bold text-foreground hover:text-yellow-600 transition-colors"
+                        >
+                          Verify
+                          <ExternalLink size={14} />
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </div>
     </section>

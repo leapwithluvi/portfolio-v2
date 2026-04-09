@@ -7,6 +7,7 @@ import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProjectSection } from "@/components/sections/ProjectSection";
 import { CertificateSection } from "@/components/sections/CertificateSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import Reveal from "@/components/ui/Reveal";
  
 export default function Home() {
   return (
@@ -15,13 +16,13 @@ export default function Home() {
       <main className="flex-1 flex flex-col pt-0">
         <HeroSection />
         
-        {/* Sections with breathable white space instead of rigid dividers */}
-        <AboutSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <ProjectSection />
-        <CertificateSection />
-        <ContactSection />
+        {/* Sections with high-end reveal animations */}
+        <Reveal><AboutSection /></Reveal>
+        <Reveal><SkillsSection /></Reveal>
+        <Reveal><ExperienceSection /></Reveal>
+        <Reveal><ProjectSection /></Reveal>
+        <Reveal><CertificateSection /></Reveal>
+        <Reveal><ContactSection /></Reveal>
       </main>
  
     </div>

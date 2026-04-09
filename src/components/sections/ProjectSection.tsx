@@ -5,15 +5,16 @@ import { motion, AnimatePresence } from "motion/react";
 import { Folders } from "lucide-react";
 import { projects } from "@/data/projects";
 import { ProjectCard } from "@/components/ProjectCard";
+import Magnetic from "@/components/ui/Magnetic";
  
-const categories = ["All", "Website", "Backend / Boilerplate"];
+const categories = ["All", ...Array.from(new Set(projects.map((p) => p.typeProject)))];
  
 export const ProjectSection = () => {
   const [activeTab, setActiveTab] = useState<string>("All");
  
   const filteredProjects = activeTab === "All" 
     ? projects 
-    : projects.filter(p => p.typeProject.includes(activeTab));
+    : projects.filter(p => p.typeProject === activeTab);
  
   return (
     <section
@@ -59,17 +60,18 @@ export const ProjectSection = () => {
           transition={{ delay: 0.4 }}
         >
           {categories.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
-                activeTab === tab 
-                  ? "bg-yellow-600 text-white shadow-lg shadow-yellow-600/20" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              {tab}
-            </button>
+            <Magnetic key={tab}>
+              <button
+                onClick={() => setActiveTab(tab)}
+                className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
+                  activeTab === tab 
+                    ? "bg-yellow-600 text-white shadow-lg shadow-yellow-600/20" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                {tab}
+              </button>
+            </Magnetic>
           ))}
         </motion.div>
  
@@ -108,12 +110,14 @@ export const ProjectSection = () => {
           <h3 className="text-3xl md:text-5xl font-serif font-bold text-center">Interested in Collaboration?</h3>
           <p className="text-lg text-muted-foreground text-center max-w-lg mb-4">Let&apos;s build something impactful together. I&apos;m currently open to freelance opportunities and full-time positions.</p>
           
-          <a
-            href="mailto:luviaprilyansyahg@gmail.com"
-            className="px-10 py-5 bg-yellow-600 text-white rounded-full font-bold shadow-xl shadow-yellow-600/20 hover:bg-yellow-700 hover:scale-105 transition-all duration-300"
-          >
-            Get In Touch
-          </a>
+          <Magnetic>
+            <a
+              href="mailto:luviaprilyansyahg@gmail.com"
+              className="px-10 py-5 bg-yellow-600 text-white rounded-full font-bold shadow-xl shadow-yellow-600/20 hover:bg-yellow-700 hover:scale-105 transition-all duration-300"
+            >
+              Get In Touch
+            </a>
+          </Magnetic>
         </motion.div>
       </div>
     </section>

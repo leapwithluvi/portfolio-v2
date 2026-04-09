@@ -2,7 +2,8 @@
 
 import { motion } from "motion/react";
 import { ExternalLink, Award, Calendar, Building2 } from "lucide-react";
-import { Certificate } from "@/data/certificate";
+import { Certificate } from "@/data/certificates";
+import Magnetic from "@/components/ui/Magnetic";
 
 interface CardCertificateProps {
   data: Certificate;
@@ -73,15 +74,17 @@ export const CardCertificate = ({ data }: CardCertificateProps) => {
 
       {/* Footer link */}
       <div className="pt-4 border-t border-border">
-        <a
-          href={credentialUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-yellow-600 transition-colors group/link"
-        >
-          <span>View Credential</span>
-          <ExternalLink size={14} className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-        </a>
+        <Magnetic>
+          <a
+            href={credentialUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-yellow-600 transition-colors group/link px-2 py-1"
+          >
+            <span>View Credential</span>
+            <ExternalLink size={14} className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+          </a>
+        </Magnetic>
       </div>
     </motion.div>
   );

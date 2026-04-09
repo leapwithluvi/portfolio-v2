@@ -4,12 +4,14 @@ import { motion } from "motion/react";
 import { Mail, MessageSquare } from "lucide-react";
 import { profile } from "@/data/profile";
 import { socials } from "@/data/socials";
+import JsonContactCard from "@/components/JsonContactCard";
+import Magnetic from "@/components/ui/Magnetic";
  
 export const ContactSection = () => {
   return (
     <section id="contact" className="relative w-full py-24 overflow-hidden">
       <div className="max-container flex flex-col items-center">
-        {/* Konten */}
+        {/* Content */}
         <motion.div
           className="flex flex-col items-center text-center max-w-5xl px-4"
           initial={{ opacity: 0, y: 30 }}
@@ -31,42 +33,55 @@ export const ContactSection = () => {
           </p>
  
           {/* Main Action Call */}
-          <motion.a
-            href={socials.find(s => s.name === "Email")?.href || "#"}
-            whileHover={{ scale: 1.05 }}
-            className="px-10 py-5 bg-yellow-600 text-white rounded-full font-bold shadow-2xl shadow-yellow-600/20 hover:bg-yellow-700 transition-all flex items-center gap-2 text-lg mb-16"
-          >
-            Say Hello
-            <Mail size={20} />
-          </motion.a>
+          <Magnetic>
+            <motion.a
+              href={socials.find(s => s.name === "Email")?.href || "#"}
+              whileHover={{ scale: 1.05 }}
+              className="px-10 py-5 bg-yellow-600 text-white rounded-full font-bold shadow-2xl shadow-yellow-600/20 hover:bg-yellow-700 transition-all flex items-center gap-2 text-lg mb-16"
+            >
+              Say Hello
+              <Mail size={20} />
+            </motion.a>
+          </Magnetic>
    
+          {/* Interactive JSON Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="w-full"
+          >
+            <JsonContactCard />
+          </motion.div>
+
           {/* Social Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl font-bold">
             {socials.filter(s => s.name !== "Email").slice(0, 4).map((social) => (
-              <a 
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 p-4 glass rounded-2xl hover:bg-muted transition-all group"
-              >
-                {social.icon && (
-                  <div 
-                    className="w-5 h-5 bg-foreground group-hover:bg-yellow-600 transition-colors"
-                    style={{
-                      maskImage: `url(${social.icon})`,
-                      maskSize: 'contain',
-                      maskRepeat: 'no-repeat',
-                      maskPosition: 'center',
-                      WebkitMaskImage: `url(${social.icon})`,
-                      WebkitMaskSize: 'contain',
-                      WebkitMaskRepeat: 'no-repeat',
-                      WebkitMaskPosition: 'center',
-                    }}
-                  />
-                )}
-                <span className="text-sm">{social.name}</span>
-              </a>
+              <Magnetic key={social.name}>
+                <a 
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 p-4 glass rounded-2xl hover:bg-muted transition-all group w-full h-full"
+                >
+                  {social.icon && (
+                    <div 
+                      className="w-5 h-5 bg-foreground group-hover:bg-yellow-600 transition-colors"
+                      style={{
+                        maskImage: `url(${social.icon})`,
+                        maskSize: 'contain',
+                        maskRepeat: 'no-repeat',
+                        maskPosition: 'center',
+                        WebkitMaskImage: `url(${social.icon})`,
+                        WebkitMaskSize: 'contain',
+                        WebkitMaskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                      }}
+                    />
+                  )}
+                  <span className="text-sm">{social.name}</span>
+                </a>
+              </Magnetic>
             ))}
           </div>
         </motion.div>

@@ -25,6 +25,7 @@
     /* SaaS Glass vars */
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
+    --spotlight-color: rgba(202, 138, 4, 0.1);
   }
  
   .dark {
@@ -50,6 +51,7 @@
     /* SaaS Glass dark vars */
     --glass-bg: rgba(18, 18, 20, 0.4);
     --glass-border: rgba(255, 255, 255, 0.05);
+    --spotlight-color: rgba(202, 138, 4, 0.07);
   }
 }
  

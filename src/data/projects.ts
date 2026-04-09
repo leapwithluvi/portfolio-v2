@@ -33,13 +33,24 @@ export const projects: Project[] = [
         "Portfolio is a personal website designed to showcase my projects, skills, and experience in web development. Built with Vite, React, Tailwind CSS, and Framer Motion, it features smooth animations, responsive design, and a clean modern interface.",
       status: "Complete",
       linkRepo: "https://github.com/leapwithluvi/portfolio",
-      srcImg: "/images/portfolio.png",
+      srcImg: "/images/portfoliov1.png",
       imgAlt: "Portfolio",
       stacks: ["Vite", "React", "Tailwind CSS", "TypeScript"],
     },
     {
+      nameProject: "Portfolio V2 - Personal Website",
+      typeProject: "Website",
+      deskProject:
+        "Portfolio is a personal website designed to showcase my projects, skills, and experience in web development. Built with Vite, React, Tailwind CSS, and Framer Motion, it features smooth animations, responsive design, and a clean modern interface.",
+      status: "Complete",
+      linkRepo: "https://github.com/leapwithluvi/portfolio-next",
+      srcImg: "/images/portfoliov2.png",
+      imgAlt: "Portfolio",
+      stacks: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    },
+    {
       nameProject: "Express TypeScript Starter",
-      typeProject: "Backend / Boilerplate",
+      typeProject: "Boilerplate",
       deskProject:
         "A robust and secure boilerplate for building scalable RESTful APIs. It features a layered architecture, Express 5, TypeScript, Prisma, Zod validation, and industry-standard security practices like Helmet and Rate Limiting.",
       status: "Complete",

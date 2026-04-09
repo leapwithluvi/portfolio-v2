@@ -12,18 +12,25 @@ export const AboutSection = () => {
       id="about"
       className="relative flex flex-col justify-center items-center py-24 overflow-hidden"
     >
-      <div className="absolute inset-x-0 h-full max-w-[1280px] mx-auto overflow-hidden -z-10">
-        <GridPattern
-          width={30}
-          height={30}
-          x={-1}
-          y={-1}
-          strokeDasharray={"4 2"}
-          className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)] opacity-40"
-        />
+      {/* Background Grid Pattern - Contained within 1280px */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div 
+          className="max-w-[1280px] mx-auto h-full relative"
+          style={{
+            maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
+          }}
+        >
+          <GridPattern
+            width={40}
+            height={40}
+            strokeDasharray={"4 4"}
+            className="fill-foreground/5 stroke-foreground/25 opacity-40"
+          />
+        </div>
       </div>
 
-      <div className="max-container flex flex-col items-center gap-16">
+      <div className="max-container relative z-10 flex flex-col items-center gap-16">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-2xl px-4">
           <motion.div
