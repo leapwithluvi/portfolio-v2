@@ -10,7 +10,7 @@ export const socials = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/leapwithluvi",
+    href: "https://www.linkedin.com/in/luviaprilyansyahgabriel",
     icon: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/linkedin.svg",
   },
   {
