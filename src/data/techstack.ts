@@ -169,7 +169,7 @@ export const techStack: TechStack[] = [
     name: "Railway",
     category: "devops",
     type: "Cloud Platform",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/railway.svg",
+    logo: "https://cdn.simpleicons.org/railway",
     url: "https://railway.app/",
   },
 
@@ -234,7 +234,7 @@ export const techStack: TechStack[] = [
     name: "Seaborn",
     category: "ai_ml",
     type: "Data Visualization Library",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/seaborn.svg",
+    logo: "https://cdn.simpleicons.org/seaborn",
     url: "https://seaborn.pydata.org/",
   },
   {
@@ -269,14 +269,14 @@ export const techStack: TechStack[] = [
     name: "Hugging Face",
     category: "ai_ml",
     type: "AI/ML Platform",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/huggingface.svg",
+    logo: "https://cdn.simpleicons.org/huggingface",
     url: "https://huggingface.co/",
   },
   {
     name: "Ollama",
     category: "ai_ml",
     type: "Local LLM Framework",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg",
+    logo: "https://cdn.simpleicons.org/ollama",
     url: "https://ollama.com/",
   },
 ];

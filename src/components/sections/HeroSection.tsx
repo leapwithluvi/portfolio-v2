@@ -123,7 +123,7 @@ export const HeroSection = () => {
                 src={profile.image}
                 alt={`${profile.name} - Software Engineering Student at ${profile.education}`}
                 fill
-                quality={85}
+                quality={75}
                 sizes="(max-width: 768px) 280px, 400px"
                 className="w-full h-full object-cover rounded-[2rem] filter brightness-95 grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 priority

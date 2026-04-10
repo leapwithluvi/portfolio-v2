@@ -16,7 +16,9 @@ export default function Preloader() {
 
   const [count, setCount] = useState(0);
 
-  const words = profile.greetings;
+  const words = dimension.width > 0 && dimension.width < 768 
+    ? profile.greetings.slice(-3) 
+    : profile.greetings;
 
   useEffect(() => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -93,18 +95,18 @@ export default function Preloader() {
     initial: { y: 0 },
     exit: { 
       y: "-100vh",
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay } 
+      transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay } 
     },
   });
 
   const getCurveVariants = (transitionDelay: number) => ({
     initial: {
       d: initialPath,
-      transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] as any },
+      transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] as any },
     },
     exit: {
       d: targetPath,
-      transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay },
+      transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay },
     },
   });
 
