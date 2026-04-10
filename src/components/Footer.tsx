@@ -19,7 +19,7 @@ export const Footer = () => {
                 {profile.logoName}<span className="text-yellow-600">.</span>
               </span>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+            <p className="text-foreground/80 text-sm leading-relaxed max-w-xs">
               {footerData.brand.tagline}
             </p>
             <div className="flex items-center gap-4">
@@ -30,7 +30,7 @@ export const Footer = () => {
                   href={social.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-yellow-600 transition-colors"
+                  className="text-foreground/60 hover:text-yellow-600 transition-colors"
                   aria-label={social.name}
                 >
                   <div 
@@ -51,11 +51,11 @@ export const Footer = () => {
 
           {/* Column 2: Navigation */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/70">Navigation</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">Navigation</h3>
             <ul className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-all flex items-center group">
+                  <a href={link.href} className="text-sm text-foreground/70 hover:text-foreground transition-all flex items-center group">
                     <span className="w-0 group-hover:w-3 h-[1px] bg-yellow-600 transition-all mr-0 group-hover:mr-2" />
                     {link.name}
                   </a>
@@ -66,13 +66,13 @@ export const Footer = () => {
 
           {/* Column 3: Specialized */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/70">{footerData.experience.title}</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">{footerData.experience.title}</h3>
             <ul className="flex flex-col gap-3">
               {footerData.experience.items.map((item, idx) => (
                 <li key={idx}>
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold">{item.title}</span>
-                    <span className="text-xs text-muted-foreground">{item.description}</span>
+                    <span className="text-xs text-foreground/60">{item.description}</span>
                   </div>
                 </li>
               ))}
@@ -81,13 +81,13 @@ export const Footer = () => {
 
           {/* Column 4: Newsletter/Status */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/70">{footerData.presence.title}</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">{footerData.presence.title}</h3>
             <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-3 text-sm text-muted-foreground bg-muted/30 p-3 rounded-xl border border-border/50">
+              <div className="flex items-center gap-3 text-sm text-foreground p-3 rounded-xl border border-border/50 bg-muted/20">
                 <Globe size={16} className="text-yellow-600" />
                 <span>{footerData.presence.availabilityText}</span>
               </div>
-              <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-500 bg-emerald-500/5 p-3 rounded-xl border border-emerald-500/20">
+              <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/30">
                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                 {footerData.presence.statusBadge}
               </div>
@@ -98,16 +98,16 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-6 mb-3 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 text-xs text-foreground/70">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-xs text-foreground/80">
             <p>&copy; {currentYear} {profile.name}. All Rights Reserved.</p>
             <span className="hidden md:block h-4 w-px bg-border" />
             <p>{footerData.bottom.creditText}</p>
           </div>
           
-          <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+          <div className="flex items-center gap-6 text-xs font-bold uppercase tracking-widest text-foreground/60">
             <div className="flex items-center gap-2">
               <Cpu size={14} />
-              Next.js 15
+              Next.js 16
             </div>
             <div className="flex items-center gap-2">
               <ShieldCheck size={14} />

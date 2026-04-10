@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
               <Magnetic key={link.name}>
                 <a
                   href={link.href}
-                  className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all px-2 py-1"
+                  className="text-xs font-bold uppercase tracking-widest text-foreground/60 hover:text-foreground transition-all px-2 py-1"
                 >
                   {link.name}
                 </a>
@@ -126,7 +126,7 @@ export const Navbar: React.FC = () => {
               className="fixed top-28 left-4 right-4 mx-auto max-w-sm bg-background border border-border rounded-3xl shadow-2xl p-8 lg:hidden z-[998]"
             >
               <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-bold text-yellow-600 uppercase tracking-widest mb-4">Navigation</span>
+                <span className="text-xs font-bold text-yellow-600 uppercase tracking-widest mb-4">Navigation</span>
                 {navLinks.map((link, idx) => (
                   <motion.a
                     key={link.name}

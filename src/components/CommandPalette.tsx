@@ -54,9 +54,11 @@ export default function CommandPalette() {
     return () => window.removeEventListener("open-command-palette", handleOpenPalette);
   }, []);
 
-  const handleAction = (sectionId: string) => {
+  const handleAction = (href: string) => {
     setIsOpen(false);
-    const element = document.querySelector(sectionId);
+    // Strip leading slash if present (e.g., /#about -> #about)
+    const targetId = href.startsWith("/") ? href.slice(1) : href;
+    const element = document.querySelector(targetId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -69,9 +71,9 @@ export default function CommandPalette() {
   return (
     <>
       {/* Keyboard Shortcut Indicator (Hidden on Mobile) */}
-      <div className="fixed bottom-8 left-8 z-40 hidden lg:flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-lg border border-border/50 text-[10px] font-bold text-muted-foreground uppercase tracking-widest backdrop-blur-md">
-        <Keyboard size={12} className="text-yellow-600" />
-        Press <span className="px-1 bg-muted rounded border border-border/50 text-foreground">⌘</span> <span className="px-1 bg-muted rounded border border-border/50 text-foreground">K</span> to search
+      <div className="fixed bottom-8 left-8 z-40 hidden lg:flex items-center gap-2 px-3 py-1.5 bg-muted/80 rounded-lg border border-border text-xs font-bold text-foreground/60 uppercase tracking-widest backdrop-blur-md shadow-2xl">
+        <Keyboard size={14} className="text-yellow-600" />
+        Press <span className="px-1 bg-muted rounded border border-border text-foreground">⌘</span> <span className="px-1 bg-muted rounded border border-border text-foreground">K</span> to search
       </div>
 
       <AnimatePresence>
@@ -127,7 +129,7 @@ export default function CommandPalette() {
                           <span className="font-medium">{action.name}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <span className="text-[10px] font-bold text-muted-foreground px-2 py-0.5 bg-muted rounded border border-border/50 group-hover:text-yellow-600 group-hover:border-yellow-600/20 transition-colors">
+                          <span className="text-xs font-bold text-foreground/60 px-2 py-0.5 bg-muted rounded border border-border group-hover:text-yellow-600 group-hover:border-yellow-600/20 transition-colors">
                             {action.shortcut}
                           </span>
                         </div>
@@ -142,13 +144,13 @@ export default function CommandPalette() {
               </div>
 
               {/* Footer */}
-              <div className="px-4 py-3 bg-muted/50 border-t border-border flex items-center justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              <div className="px-4 py-3 bg-muted/80 border-t border-border flex items-center justify-between text-xs font-bold text-foreground/60 uppercase tracking-widest">
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1">
-                    <span className="px-1 bg-muted rounded border border-border/50 text-foreground">Esc</span> to close
+                    <span className="px-1 bg-muted rounded border border-border text-foreground">Esc</span> to close
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="px-1 bg-muted rounded border border-border/50 text-foreground">↵</span> to select
+                    <span className="px-1 bg-muted rounded border border-border text-foreground">↵</span> to select
                   </span>
                 </div>
                 <div className="flex items-center gap-1">

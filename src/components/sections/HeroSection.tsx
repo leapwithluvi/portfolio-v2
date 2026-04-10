@@ -51,9 +51,9 @@ export const HeroSection = () => {
 
           <motion.h1
             className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] tracking-tight text-foreground"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
             {sectionContent.hero.headingBefore}{" "}
             <span className="text-yellow-600">{sectionContent.hero.headingAccent}</span>{" "}
@@ -61,9 +61,10 @@ export const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl text-center lg:text-left md:text-wrap text-justify md:text-left"
+            className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-xl text-center lg:text-left md:text-wrap text-justify md:text-left"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             {sectionContent.hero.intro}{" "}
@@ -113,11 +114,8 @@ export const HeroSection = () => {
         </div>
 
         {/* RIGHT COLUMN: Refined Portrait Image */}
-        <motion.div
+        <div
           className="relative w-full max-w-sm lg:max-w-[400px] flex justify-center lg:justify-end"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 1 }}
         >
           <div className="relative group">
             <div className="relative glass rounded-[3rem] p-4 shadow-2xl overflow-hidden aspect-[4/5] w-[280px] md:w-[320px] lg:w-[360px]">
@@ -133,7 +131,7 @@ export const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

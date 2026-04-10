@@ -60,13 +60,13 @@ export default function Preloader() {
     if (index === words.length - 1) {
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000); // Wait at the last word (100%) before exiting
+      }, 300); // Wait at the last word (100%) before exiting
       return;
     }
     
     const wordsTimer = setTimeout(() => {
       setIndex(index + 1);
-    }, index === 0 ? 600 : 100); // More aggressive: 600ms first word, 100ms others
+    }, index === 0 ? 400 : 60); // More aggressive: 400ms first word, 60ms others
 
     return () => {
       clearTimeout(wordsTimer);
@@ -93,18 +93,18 @@ export default function Preloader() {
     initial: { y: 0 },
     exit: { 
       y: "-100vh",
-      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay } 
+      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay } 
     },
   });
 
   const getCurveVariants = (transitionDelay: number) => ({
     initial: {
       d: initialPath,
-      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as any },
+      transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] as any },
     },
     exit: {
       d: targetPath,
-      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay },
+      transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay },
     },
   });
 
@@ -114,14 +114,14 @@ export default function Preloader() {
         <div className="fixed inset-0 z-[9999] pointer-events-none">
           {/* Layer 1: Gray Background Shade - Desktop Only */}
           <motion.div
-            variants={getLayerVariants(0.4)}
+            variants={getLayerVariants(0.2)}
             initial="initial"
             exit="exit"
             className="absolute inset-0 z-10 bg-neutral-900 hidden md:block"
           >
             <svg className="absolute top-[99.5%] w-full h-[200px] fill-neutral-900">
               <motion.path
-                variants={getCurveVariants(0.4)}
+                variants={getCurveVariants(0.2)}
                 initial="initial"
                 exit="exit"
               />
@@ -130,14 +130,14 @@ export default function Preloader() {
           
           {/* Layer 2: Yellow Accent Shade - Desktop Only */}
           <motion.div
-            variants={getLayerVariants(0.2)}
+            variants={getLayerVariants(0.1)}
             initial="initial"
             exit="exit"
             className="absolute inset-0 z-20 bg-yellow-600 hidden md:block"
           >
             <svg className="absolute top-[99.5%] w-full h-[200px] fill-yellow-600">
               <motion.path
-                variants={getCurveVariants(0.2)}
+                variants={getCurveVariants(0.1)}
                 initial="initial"
                 exit="exit"
               />
