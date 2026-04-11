@@ -16,14 +16,12 @@ export default function Preloader() {
 
   const [count, setCount] = useState(0);
 
-  const words = dimension.width > 0 && dimension.width < 768 
-    ? profile.greetings.slice(-3) 
-    : profile.greetings;
-
+  const words = profile.greetings;
+ 
   useEffect(() => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
   }, []);
-
+ 
   useEffect(() => {
     const preventDefault = (e: Event) => e.preventDefault();
     
@@ -44,7 +42,7 @@ export default function Preloader() {
       window.removeEventListener("touchmove", preventDefault);
     };
   }, [isLoading]);
-
+ 
   useEffect(() => {
     // Calculate target percentage based on current word index
     const targetCount = Math.floor(((index + 1) / words.length) * 100);
@@ -56,19 +54,19 @@ export default function Preloader() {
         clearInterval(interval);
         return prev;
       });
-    }, 10); // Increment speed per 1%
-
+    }, 15); // Slightly slower increment: 15ms per 1%
+ 
     // Logic for switching words
     if (index === words.length - 1) {
       setTimeout(() => {
         setIsLoading(false);
-      }, 300); // Wait at the last word (100%) before exiting
+      }, 500); // Wait 500ms at the last word
       return;
     }
     
     const wordsTimer = setTimeout(() => {
       setIndex(index + 1);
-    }, index === 0 ? 400 : 60); // More aggressive: 400ms first word, 60ms others
+    }, index === 0 ? 500 : 150); // 500ms first word, 150ms others
 
     return () => {
       clearTimeout(wordsTimer);
@@ -119,7 +117,7 @@ export default function Preloader() {
             variants={getLayerVariants(0.2)}
             initial="initial"
             exit="exit"
-            className="absolute inset-0 z-10 bg-neutral-900 hidden md:block"
+            className="absolute inset-0 z-10 bg-neutral-900 hidden md:block transform-gpu"
           >
             <svg className="absolute top-[99.5%] w-full h-[200px] fill-neutral-900">
               <motion.path
@@ -135,7 +133,7 @@ export default function Preloader() {
             variants={getLayerVariants(0.1)}
             initial="initial"
             exit="exit"
-            className="absolute inset-0 z-20 bg-yellow-600 hidden md:block"
+            className="absolute inset-0 z-20 bg-yellow-600 hidden md:block transform-gpu"
           >
             <svg className="absolute top-[99.5%] w-full h-[200px] fill-yellow-600">
               <motion.path
@@ -152,7 +150,7 @@ export default function Preloader() {
             variants={getLayerVariants(0)}
             initial="initial"
             exit="exit"
-            className="absolute inset-0 z-30 flex items-center justify-center bg-black pointer-events-auto shadow-[0_50px_100px_rgba(0,0,0,0.5)]"
+            className="absolute inset-0 z-30 flex items-center justify-center bg-black pointer-events-auto shadow-[0_50px_100px_rgba(0,0,0,0.5)] transform-gpu"
           >
             {dimension.width > 0 && (
               <>

@@ -123,10 +123,12 @@ export const HeroSection = () => {
                 src={profile.image}
                 alt={`${profile.name} - Software Engineering Student at ${profile.education}`}
                 fill
-                quality={75}
-                sizes="(max-width: 768px) 280px, 400px"
+                quality={85}
+                sizes="(max-width: 768px) 280px, (max-width: 1200px) 360px, 400px"
                 className="w-full h-full object-cover rounded-[2rem] filter brightness-95 grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 priority
+                fetchPriority="high"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
             </div>

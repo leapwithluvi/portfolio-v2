@@ -1,37 +1,25 @@
 "use client";
- 
+  
 import { motion } from "motion/react";
 import {
   Clock3,
-  LayoutPanelLeft,
-  Cpu,
-  Network,
-  ShieldCheck,
 } from "lucide-react";
 import { techStack, skills } from "@/data/techstack";
-import { profile } from "@/data/profile";
 import { sectionContent } from "@/data/sections";
 import { GridPattern } from "@/components/ui/grid-pattern";
 import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-is-mobile";
- 
-const IconMap = {
-  LayoutPanelLeft: LayoutPanelLeft,
-  Cpu: Cpu,
-  Network: Network,
-  ShieldCheck: ShieldCheck,
-};
- 
+  
 export const SkillsSection = () => {
   const isMobile = useIsMobile();
   // Split tech stack into two for Dual Marquee (Enterprise Style)
   const firstHalf = techStack.slice(0, Math.ceil(techStack.length / 2));
   const secondHalf = techStack.slice(Math.ceil(techStack.length / 2));
- 
-  // Triple the items for seamless loop
-  const marquee1 = [...firstHalf, ...firstHalf, ...firstHalf];
-  const marquee2 = [...secondHalf, ...secondHalf, ...secondHalf];
- 
+  
+  // Double the items instead of triple to reduce DOM node count (enough for loop)
+  const marquee1 = [...firstHalf, ...firstHalf];
+  const marquee2 = [...secondHalf, ...secondHalf];
+  
   return (
     <section
       id="skills"
@@ -54,7 +42,7 @@ export const SkillsSection = () => {
           />
         </div>
       </div>
- 
+  
       <div className="max-container flex flex-col items-center gap-12">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-2xl px-4">
@@ -67,7 +55,7 @@ export const SkillsSection = () => {
             <Clock3 size={16} />
             <span>{sectionContent.skills.badge}</span>
           </motion.div>
- 
+  
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +65,7 @@ export const SkillsSection = () => {
           >
             {sectionContent.skills.title}
           </motion.h2>
- 
+  
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -88,66 +76,58 @@ export const SkillsSection = () => {
             {sectionContent.skills.description}
           </motion.p>
         </div>
- 
-        {/* Skills Bento Cloud */}
+  
+        {/* Skills Bento Cloud - Pure Card Design */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full px-4">
-          {skills.map((category, index) => {
-            const IconComponent = IconMap[category.icon as keyof typeof IconMap];
-            
-            return (
-              <motion.div
-                key={category.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: isMobile }}
-                transition={{ delay: index * 0.1 }}
-                className="glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-6 group hover:translate-y-[-4px] transition-all duration-300 border border-border/50 overflow-hidden"
-              >
-                <div className={`p-4 rounded-2xl w-fit flex items-center justify-center transition-all duration-500 group-hover:scale-110 ${
-                  index % 2 === 0 ? "bg-yellow-600/5 text-yellow-600 border border-yellow-600/10" : "bg-teal-600/5 text-teal-600 border border-teal-600/10"
-                }`}>
-                  {IconComponent && <IconComponent size={32} strokeWidth={1.5} />}
-                </div>
-                <div>
-                  <h3 className="text-2xl font-serif font-bold mb-4">{category.title}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1 bg-background/50 border border-border/40 rounded-full text-xs font-semibold text-muted-foreground group-hover:text-foreground transition-colors"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+          {skills.map((category, index) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: isMobile }}
+              transition={{ delay: index * 0.1 }}
+              className="glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-4 group hover:translate-y-[-4px] transition-all duration-300 border border-border/50 overflow-hidden transform-gpu"
+            >
+              <h3 className="text-2xl font-serif font-bold text-foreground">
+                {category.title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 bg-background/50 border border-border/40 rounded-full text-xs font-semibold text-muted-foreground group-hover:text-foreground transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
- 
-        {/* DUAL MOVING MARQUEE */}
+  
+        {/* DUAL MOVING MARQUEE - Optimized for Performance */}
         <div className="relative w-full mt-16 flex flex-col gap-6">
           {/* Masked Edges for Fade Effect */}
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
- 
+  
           {/* Row 1: Moves Left */}
           <div className="flex overflow-hidden">
             <motion.div
-              className="flex items-center gap-6 whitespace-nowrap"
-              animate={{ x: ["0%", "-33.33%"] }}
+              className="flex items-center gap-6 whitespace-nowrap will-change-transform transform-gpu"
+              animate={{ x: ["0%", "-50%"] }}
               transition={{
                 repeat: Infinity,
                 ease: "linear",
-                duration: 45,
+                duration: 60,
               }}
               whileHover={{ animationPlayState: "paused" }}
+              style={{ willChange: "transform" }}
             >
               {marquee1.map((stack, idx) => (
                 <div
                   key={`m1-${idx}`}
-                  className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border border-border/50 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 hover:scale-105 transition-all duration-500 cursor-default"
+                  className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border border-border/50 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 hover:scale-105 transition-all duration-500 cursor-default transform-gpu"
                 >
                   <img src={stack.logo} alt={stack.name} className="w-8 h-8 object-contain shrink-0" />
                   <span className="text-xs font-bold uppercase tracking-widest text-foreground truncate max-w-[120px]">{stack.name}</span>
@@ -155,23 +135,24 @@ export const SkillsSection = () => {
               ))}
             </motion.div>
           </div>
- 
+  
           {/* Row 2: Moves Right */}
           <div className="flex overflow-hidden">
             <motion.div
-              className="flex items-center gap-6 whitespace-nowrap"
-              animate={{ x: ["-33.33%", "0%"] }}
+              className="flex items-center gap-6 whitespace-nowrap will-change-transform transform-gpu"
+              animate={{ x: ["-50%", "0%"] }}
               transition={{
                 repeat: Infinity,
                 ease: "linear",
-                duration: 50,
+                duration: 70,
               }}
               whileHover={{ animationPlayState: "paused" }}
+              style={{ willChange: "transform" }}
             >
               {marquee2.map((stack, idx) => (
                 <div
                   key={`m2-${idx}`}
-                  className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border border-border/50 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 hover:scale-105 transition-all duration-500 cursor-default"
+                  className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border border-border/50 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 hover:scale-105 transition-all duration-500 cursor-default transform-gpu"
                 >
                   <img src={stack.logo} alt={stack.name} className="w-8 h-8 object-contain shrink-0" />
                   <span className="text-xs font-bold uppercase tracking-widest text-foreground truncate max-w-[120px]">{stack.name}</span>
@@ -180,14 +161,14 @@ export const SkillsSection = () => {
             </motion.div>
           </div>
         </div>
- 
-        {/* Full Stacks Static Grid (Fixed individual hover) */}
-        <div className="w-full mt-12 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4 px-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+  
+        {/* Full Stacks Static Grid */}
+        <div className="w-full mt-12 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4 px-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500 transform-gpu will-change-[opacity,filter]">
           {techStack.map((stack, index) => (
             <div
               key={index}
               title={stack.name}
-              className="flex justify-center flex-col items-center group cursor-default"
+              className="flex justify-center flex-col items-center group cursor-default transform-gpu"
             >
               <Link href={stack.url} target="_blank" rel="noopener noreferrer">
                 <img

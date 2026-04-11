@@ -213,7 +213,7 @@ export const techStack: TechStack[] = [
     name: "SciPy",
     category: "ai_ml",
     type: "Scientific Computing Library",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scipy/scipy-original.svg",
+    logo: "https://cdn.simpleicons.org/scipy/4DABCF",
     url: "https://scipy.org/",
   },
   {
@@ -234,7 +234,7 @@ export const techStack: TechStack[] = [
     name: "Seaborn",
     category: "ai_ml",
     type: "Data Visualization Library",
-    logo: "https://cdn.simpleicons.org/seaborn",
+    logo: "https://seaborn.pydata.org/_images/logo-mark-lightbg.svg",
     url: "https://seaborn.pydata.org/",
   },
   {

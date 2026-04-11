@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { seo, personJsonLd, projectJsonLd, serviceJsonLd } from "@/data/seo";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import Spotlight from "@/components/ui/Spotlight";
 import SmoothScroll from "@/components/SmoothScroll";
-import ScrollProgress from "@/components/ScrollProgress";
-import CommandPalette from "@/components/CommandPalette";
-import BackToTop from "@/components/BackToTop";
 import Preloader from "@/components/Preloader";
-import SectionNav from "@/components/SectionNav";
-import CustomCursor from "@/components/CustomCursor";
 import { Grain } from "@/components/ui/Grain";
 import Script from "next/script";
+import { GlobalUI } from "@/components/GlobalUI";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +20,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -82,9 +86,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.simpleicons.org" crossOrigin="anonymous" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased min-h-screen bg-background text-foreground transition-colors duration-300`}
       >
         {/* Anti-Flicker Theme Script */}
         <Script
@@ -95,9 +102,10 @@ export default function RootLayout({
               (function() {
                 try {
                   var theme = localStorage.getItem('theme');
-                  var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                  if (!theme && supportDarkMode) theme = 'dark';
-                  if (theme === 'dark') document.documentElement.classList.add('dark');
+                  // For a 'light-first' experience, we only apply 'dark' if specifically saved
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  }
                 } catch (e) {}
               })();
             `,
@@ -159,12 +167,8 @@ export default function RootLayout({
         />
 
         {/* Global UI Components */}
-        <CustomCursor />
+        <GlobalUI />
         <Grain />
-        <ScrollProgress />
-        <CommandPalette />
-        <BackToTop />
-        <SectionNav />
         <Spotlight />
 
         <div className="relative flex min-h-screen flex-col">
@@ -180,6 +184,8 @@ export default function RootLayout({
             </main>
             <Footer />
           </SmoothScroll>
+          <SpeedInsights />
+          <Analytics />
         </div>
       </body>
     </html>

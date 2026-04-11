@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { UserRound, Layout, Database, Terminal } from "lucide-react";
+import { UserRound } from "lucide-react";
 import { profile } from "@/data/profile";
 import { sectionContent } from "@/data/sections";
 import { statistics } from "@/data/experience";
@@ -113,9 +113,6 @@ export const AboutSection = () => {
             viewport={{ once: isMobile }}
             className="col-span-1 md:col-span-4 glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-4 items-center text-center"
           >
-            <div className="p-4 bg-yellow-600/10 rounded-2xl text-yellow-600">
-              <Layout size={32} />
-            </div>
             <h4 className="text-xl font-bold font-serif">{sectionContent.about.card1Title}</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {sectionContent.about.card1Desc}
@@ -129,9 +126,6 @@ export const AboutSection = () => {
             transition={{ delay: 0.1 }}
             className="col-span-1 md:col-span-4 glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-4 items-center text-center"
           >
-            <div className="p-4 bg-teal-600/10 rounded-2xl text-teal-600">
-              <Database size={32} />
-            </div>
             <h4 className="text-xl font-bold font-serif">{sectionContent.about.card2Title}</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {sectionContent.about.card2Desc}
@@ -145,9 +139,6 @@ export const AboutSection = () => {
             transition={{ delay: 0.2 }}
             className="col-span-1 md:col-span-4 glass p-6 md:p-8 rounded-3xl shadow-xl flex flex-col gap-4 items-center text-center"
           >
-            <div className="p-4 bg-indigo-600/10 rounded-2xl text-indigo-600">
-              <Terminal size={32} />
-            </div>
             <h4 className="text-xl font-bold font-serif">{sectionContent.about.card3Title}</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {sectionContent.about.card3Desc}
