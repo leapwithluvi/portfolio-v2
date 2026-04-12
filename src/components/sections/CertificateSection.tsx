@@ -2,158 +2,108 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Award, ExternalLink, Calendar, Folders } from "lucide-react";
+import { ExternalLink} from "lucide-react";
 import { certificates } from "@/data/certificates";
-import { profile } from "@/data/profile";
-import { sectionContent } from "@/data/sections";
-import { useIsMobile } from "@/hooks/use-is-mobile";
+import { useTranslation } from "@/hooks/useTranslation";
  
 const categories = ["All", ...Array.from(new Set(certificates.map((c) => c.category)))];
 
 export const CertificateSection = () => {
-  const isMobile = useIsMobile();
-  const [activeTab, setActiveTab] = useState<string>("All");
+  const { t } = useTranslation();
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  const filteredCertificates = activeTab === "All"
-    ? certificates
-    : certificates.filter(c => c.category === activeTab);
+  const filteredCertificates = activeCategory === "All" 
+    ? certificates 
+    : certificates.filter(cert => cert.category === activeCategory);
 
   return (
-    <section
-      id="certificates"
-      className="relative flex flex-col justify-center items-center py-24 overflow-hidden"
-    >
-      <div className="absolute inset-x-0 h-full max-w-[1280px] mx-auto bg-muted/30 dark:bg-muted/10 -z-10" />
-      <div className="max-container flex flex-col items-center gap-12">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-4xl px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: isMobile }}
-            className="flex items-center gap-2 mb-4 text-yellow-600 font-bold uppercase tracking-widest text-xs"
-          >
-            <Award size={16} />
-            <span>{sectionContent.certificates.badge}</span>
-          </motion.div>
-          
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: isMobile }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-6"
-          >
-            {sectionContent.certificates.title}
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: isMobile }}
-            transition={{ delay: 0.3 }}
-            className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl px-4"
-          >
-            {sectionContent.certificates.description}
-          </motion.p>
+    <section id="certificates" className="relative py-20 md:py-32 overflow-hidden bg-background border-t border-border">
+      <div className="max-container">
+        <div className="flex flex-col gap-12 mb-12 md:mb-24">
+          <div className="text-label text-amber-500">{t.certificates.badge}</div>
+          <h2 className="text-6xl md:text-8xl font-serif font-bold text-foreground leading-[0.8] tracking-tighter">
+            {t.certificates.title}
+          </h2>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl font-light leading-relaxed">
+            {t.certificates.description}
+          </p>
         </div>
 
-        {/* Tab Navigation Pill-style */}
-        <motion.div 
-          className="flex flex-wrap items-center justify-center p-2 gap-2 bg-muted/30 dark:bg-muted/10 rounded-full border border-border/50 glass animate-in fade-in duration-500"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: isMobile }}
-          transition={{ delay: 0.4 }}
-        >
-          {categories.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
-                activeTab === tab 
-                  ? "bg-yellow-600 text-white shadow-lg shadow-yellow-600/20" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </motion.div>
- 
-        {/* Certification Grid */}
-        <div className="w-full px-4">
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
-            layout
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredCertificates.map((cert, index) => (
-                <motion.div
-                  key={cert.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
-                  className="group glass p-8 rounded-[2rem] border border-border/50 shadow-lg hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 overflow-hidden relative"
+        {/* Filter Navigation */}
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mb-16 border-b border-border pb-8">
+            {categories.map((category) => (
+                <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all relative py-2 ${
+                        activeCategory === category 
+                        ? "text-amber-500" 
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-600/5 blur-3xl -z-10 group-hover:bg-yellow-600/10 transition-colors" />
-                  
-                  <div className="flex flex-col gap-6 h-full">
-                    {/* Issuer Logo */}
-                    <div className="flex justify-between items-start">
-                      <div className="p-3 bg-white dark:bg-zinc-800 rounded-xl border border-border/50 shadow-md">
-                        <img src={cert.issuerLogo} alt={cert.issuer} className="w-8 h-8 object-contain" />
-                      </div>
-                      <div className="px-3 py-1 bg-yellow-600/10 text-yellow-600 text-[10px] font-bold uppercase tracking-widest rounded-full border border-yellow-600/20">
-                        {cert.category}
-                      </div>
-                    </div>
-    
-                    {/* Content */}
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-xl font-serif font-bold text-foreground leading-tight group-hover:text-yellow-600 transition-colors">
-                        {cert.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-widest">
-                        <span>{cert.issuer}</span>
-                      </div>
-                    </div>
-    
-                    {/* Details Footer */}
-                    <div className="mt-auto pt-6 flex flex-col gap-6 border-t border-border/50">
-                      <div className="flex flex-wrap gap-1.5">
-                        {cert.skills.map(skill => (
-                          <span key={skill} className="px-2 py-0.5 bg-muted/50 text-[10px] font-bold rounded-md text-muted-foreground uppercase tracking-tighter">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                      
-                      <div className="flex justify-between items-center">
-                        <div className="text-[10px] uppercase font-bold text-muted-foreground/60 flex items-center gap-1.5">
-                          <Calendar size={12} className="text-yellow-600" />
-                          {cert.date}
-                        </div>
-                        <a
-                          href={cert.credentialUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs font-bold text-foreground hover:text-yellow-600 transition-colors"
-                        >
-                          Verify
-                          <ExternalLink size={14} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+                    {category}
+                    {activeCategory === category && (
+                        <motion.div 
+                            layoutId="activeTab"
+                            className="absolute -bottom-[33px] left-0 right-0 h-0.5 bg-amber-500 z-10"
+                        />
+                    )}
+                </button>
+            ))}
+        </div>
+
+        <div className="flex flex-col border-t border-border">
+          <AnimatePresence mode="popLayout">
+            {filteredCertificates.map((cert, index) => (
+              <motion.div
+                key={cert.title}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-10 md:py-16 border-b border-border items-center hover:bg-muted/30 transition-colors duration-500"
+              >
+                <div className="lg:col-span-1 text-meta opacity-30 group-hover:opacity-100 uppercase">
+                  {index < 9 ? `0${index + 1}` : index + 1}
+                </div>
+                
+                <div className="lg:col-span-1 flex justify-center">
+                   <img src={cert.issuerLogo} alt={cert.issuer} className="w-10 h-10 object-contain grayscale group-hover:grayscale-0 transition-all opacity-50 group-hover:opacity-100" />
+                </div>
+
+                <div className="lg:col-span-4 flex flex-col gap-2">
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold group-hover:text-amber-500 transition-colors tracking-tight">
+                    {cert.title}
+                  </h3>
+                  <div className="text-meta opacity-50 uppercase tracking-widest text-[9px]">{cert.issuer}</div>
+                </div>
+
+                <div className="lg:col-span-4 flex flex-wrap gap-2">
+                  {cert.skills.map((skill) => (
+                    <span key={skill} className="text-[9px] font-mono border border-border px-2 py-0.5 opacity-40 group-hover:opacity-100 transition-opacity">
+                      #{skill.replace(/\s+/g, '')}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="lg:col-span-2 flex justify-end items-center gap-6">
+                   <div className="text-meta opacity-30 font-mono text-[10px]">{cert.date}</div>
+                   <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 border border-border hover:bg-foreground hover:text-background transition-colors"
+                    >
+                      <ExternalLink size={14} />
+                    </a>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>
   );
 };
+

@@ -1,104 +1,87 @@
-"use client"
- 
+"use client";
+
 import { motion } from "motion/react";
-import { Workflow, Award, Calendar, MapPin, Briefcase } from "lucide-react";
-import { experiences, statistics } from "@/data/experience";
-import { ExperienceCard } from "@/components/ExperienceCard";
-import { profile } from "@/data/profile";
-import { sectionContent } from "@/data/sections";
-import { useIsMobile } from "@/hooks/use-is-mobile";
- 
+import { MapPin } from "lucide-react";
+import { experiences } from "@/data/experience";
+import { useTranslation } from "@/hooks/useTranslation";
+
 export const ExperienceSection = () => {
-  const isMobile = useIsMobile();
+  const { t } = useTranslation();
+
   return (
     <section
       id="experience"
-      className="relative py-24 overflow-hidden border-t border-border/50"
+      className="relative py-20 md:py-32 overflow-hidden bg-background"
     >
-      <div className="absolute inset-0 bg-muted/5 -z-10" />
-      
-      <div className="max-container px-4">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-          
-          {/* LEFT SIDE: Sticky Header & Stats */}
-          <div className="lg:sticky lg:top-32 lg:w-1/3 flex flex-col gap-10">
-            <div className="flex flex-col gap-6">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: isMobile }}
-                className="flex items-center gap-2 text-yellow-600 font-bold uppercase tracking-widest text-xs"
-              >
-                <Workflow size={16} strokeWidth={1.5} />
-                <span>{sectionContent.experience.badge}</span>
-              </motion.div>
-              
-              <motion.h2
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: isMobile }}
-                transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-foreground leading-[1.1]"
-              >
-                {sectionContent.experience.title.split(" & ").map((part: string, i: number) => (
-                  <span key={i}>
-                    {part} {i === 0 && <br />}
-                  </span>
-                ))}
-              </motion.h2>
-              
-              <motion.p
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: isMobile }}
-                transition={{ delay: 0.2 }}
-                className="text-lg text-muted-foreground leading-relaxed text-justify lg:text-left"
-              >
-                {sectionContent.experience.description}
-              </motion.p>
-            </div>
+      <div className="max-container">
+        <div className="flex flex-col gap-12 mb-10 md:mb-20">
+          <div className="text-label text-amber-500">{t.experience.badge}</div>
+          <h2 className="text-6xl md:text-8xl font-serif font-bold text-foreground leading-[0.8] tracking-tighter">
+            {t.experience.title}
+          </h2>
+        </div>
 
-            {/* Stats Summary in Sticky Column */}
-            <div className="grid grid-cols-2 gap-4">
-              {statistics.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: isMobile }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="p-6 glass rounded-2xl flex flex-col gap-1 border border-border/40"
-                >
-                  <span className="text-3xl font-serif font-bold text-yellow-600">{item.value}</span>
-                  <span className="text-[9px] uppercase font-bold tracking-widest text-muted-foreground leading-tight">
-                    {item.label}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+        <div className="flex flex-col gap-0 border-t border-border">
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-12 md:py-20 border-b border-border items-start hover:bg-muted/30 transition-colors duration-500"
+            >
+              <div className="lg:col-span-1 text-meta opacity-30 group-hover:opacity-100 transition-opacity">
+                0{index + 1}
+              </div>
 
-          {/* RIGHT SIDE: Scrollable Content */}
-          <div className="lg:w-2/3 flex flex-col gap-12 w-full">
-            <div className="flex flex-col gap-8">
-              {experiences.map((exp, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.8, 
-                    delay: 0.1 * index,
-                    ease: [0.16, 1, 0.3, 1] 
-                  }}
-                  viewport={{ once: isMobile, margin: "-100px" }}
-                >
-                  <ExperienceCard data={exp} />
-                </motion.div>
-              ))}
-            </div>
-          </div>
+              <div className="lg:col-span-4 flex flex-col gap-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                  {exp.image && (
+                    <div className="relative w-20 h-20 transition-all duration-700 bg-muted/20 border border-border overflow-hidden p-3 flex-shrink-0">
+                      <img
+                        src={exp.image}
+                        alt={exp.company}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  )}
+                  <h3 className="text-4xl font-serif font-bold group-hover:text-amber-500 transition-colors">
+                    {exp.company}
+                  </h3>
+                </div>
 
+                <div className="flex flex-col gap-2">
+                  <div className="text-meta uppercase tracking-widest">
+                    {exp.duration}
+                  </div>
+                  <div className="flex items-center gap-2 text-meta opacity-50">
+                    <MapPin size={10} />
+                    {exp.location}
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 flex flex-col gap-8">
+                <div className="text-2xl font-light text-foreground/90 uppercase tracking-tight">
+                  {exp.role}
+                </div>
+                <p className="text-muted-foreground leading-relaxed text-justify max-w-2xl">
+                  {exp.summary}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {exp.details.map((detail) => (
+                    <span
+                      key={detail.id}
+                      className="px-3 py-1 bg-secondary text-[10px] font-bold uppercase tracking-widest rounded-none border border-border"
+                    >
+                      {detail.description}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

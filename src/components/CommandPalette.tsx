@@ -71,90 +71,92 @@ export default function CommandPalette() {
   return (
     <>
       {/* Keyboard Shortcut Indicator (Hidden on Mobile) */}
-      <div className="fixed bottom-8 left-8 z-40 hidden lg:flex items-center gap-2 px-3 py-1.5 bg-muted/80 rounded-lg border border-border text-xs font-bold text-foreground/60 uppercase tracking-widest backdrop-blur-md shadow-2xl">
-        <Keyboard size={14} className="text-yellow-600" />
-        Press <span className="px-1 bg-muted rounded border border-border text-foreground">⌘</span> <span className="px-1 bg-muted rounded border border-border text-foreground">K</span> to search
+      <div className="fixed bottom-8 left-8 z-[60] hidden lg:flex items-center gap-3 px-4 py-2 bg-background border border-border text-[9px] font-bold text-foreground uppercase tracking-[0.2em] shadow-2xl">
+        <Keyboard size={12} className="text-amber-500" />
+        Press <span className="px-1.5 py-0.5 border border-border text-foreground">CTRL</span> <span className="px-1.5 py-0.5 border border-border text-foreground">K</span> to interact
       </div>
 
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4">
+          <div className="fixed inset-0 z-[200] flex items-start justify-center pt-[15vh] px-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/90 backdrop-blur-sm"
             />
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              initial={{ opacity: 0, scale: 0.98, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              className="relative w-full max-w-2xl bg-card border border-border shadow-2xl rounded-2xl overflow-hidden glass"
+              exit={{ opacity: 0, scale: 0.98, y: -10 }}
+              className="relative w-full max-w-2xl bg-background border border-border shadow-2xl rounded-none overflow-hidden"
             >
               {/* Search Bar */}
-              <div className="flex items-center px-4 py-4 border-b border-border">
-                <Search className="text-muted-foreground mr-3" size={20} />
+              <div className="flex items-center px-6 py-5 border-b border-border">
+                <Search className="text-amber-500 mr-4" size={18} />
                 <input
                   autoFocus
-                  placeholder="Type a command or search..."
-                  className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
+                  placeholder="COMMAND_QUERY..."
+                  className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground font-mono text-sm tracking-widest uppercase"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-muted rounded text-muted-foreground transition-colors"
+                  className="p-1 hover:text-amber-500 transition-colors"
                 >
                   <X size={18} />
                 </button>
               </div>
 
               {/* Actions List */}
-              <div className="max-h-[60vh] overflow-y-auto p-2">
+              <div className="max-h-[60vh] overflow-y-auto p-2 bg-muted/5">
                 {filteredActions.length > 0 ? (
-                  filteredActions.map((action) => {
+                  filteredActions.map((action, idx) => {
                     const Icon = IconMap[action.icon] || Search;
                     return (
                       <button
                         key={action.name}
                         onClick={() => handleAction(action.href)}
-                        className="w-full flex items-center justify-between px-3 py-3 hover:bg-yellow-600/10 hover:text-yellow-600 rounded-xl transition-all group"
+                        className="w-full flex items-center justify-between px-6 py-4 border-b border-transparent hover:border-amber-500/20 hover:bg-muted/30 transition-all group text-left"
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 bg-muted group-hover:bg-yellow-600/20 rounded-lg transition-colors">
-                            <Icon size={18} />
+                        <div className="flex items-center gap-4">
+                          <div className="text-meta opacity-20 group-hover:opacity-100 transition-opacity">0{idx + 1}</div>
+                          <div className="flex flex-col">
+                             <span className="text-label text-[11px] group-hover:text-amber-500 transition-colors">{action.name}</span>
+                             <span className="text-[9px] uppercase tracking-widest opacity-30 font-mono">system.nav.{action.name.toLowerCase()}</span>
                           </div>
-                          <span className="font-medium">{action.name}</span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <span className="text-xs font-bold text-foreground/60 px-2 py-0.5 bg-muted rounded border border-border group-hover:text-yellow-600 group-hover:border-yellow-600/20 transition-colors">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-bold text-foreground/40 px-2 py-1 border border-border group-hover:text-amber-500 group-hover:border-amber-500 transition-colors">
                             {action.shortcut}
                           </span>
                         </div>
                       </button>
                     );
                   })
-                ) : (
-                  <div className="py-12 text-center text-muted-foreground">
-                    No results found for &quot;{query}&quot;
+                 ) : (
+                  <div className="py-20 text-center flex flex-col items-center gap-4">
+                    <div className="text-meta opacity-30 uppercase tracking-[0.5em]">No_Matches_Found</div>
+                    <div className="h-px w-12 bg-border" />
                   </div>
                 )}
               </div>
 
               {/* Footer */}
-              <div className="px-4 py-3 bg-muted/80 border-t border-border flex items-center justify-between text-xs font-bold text-foreground/60 uppercase tracking-widest">
-                <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1">
-                    <span className="px-1 bg-muted rounded border border-border text-foreground">Esc</span> to close
+              <div className="px-6 py-4 bg-muted/20 border-t border-border flex items-center justify-between text-[8px] font-bold text-foreground/40 uppercase tracking-[0.3em]">
+                <div className="flex items-center gap-6">
+                  <span className="flex items-center gap-2">
+                    <span className="px-1.5 py-0.5 border border-border text-foreground">ESC</span> EXIT
                   </span>
-                  <span className="flex items-center gap-1">
-                    <span className="px-1 bg-muted rounded border border-border text-foreground">↵</span> to select
+                  <span className="flex items-center gap-2">
+                    <span className="px-1.5 py-0.5 border border-border text-foreground">ENTER</span> SELECT
                   </span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Command size={10} />
+                <div className="flex items-center gap-2">
+                   <Code size={10} /> SYSTEM_TERMINAL
                 </div>
               </div>
             </motion.div>

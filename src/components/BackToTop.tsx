@@ -53,7 +53,7 @@ export default function BackToTop() {
               cx="28"
               cy="28"
               r="24"
-              className="stroke-yellow-600 fill-none"
+              className="stroke-amber-500 fill-none"
               strokeWidth="4"
               strokeLinecap="round"
               style={{ pathLength }}
@@ -61,7 +61,7 @@ export default function BackToTop() {
           </svg>
 
           {/* Icon */}
-          <div className="absolute inset-0 flex items-center justify-center text-yellow-600 group-hover:-translate-y-1 transition-transform duration-300">
+          <div className="absolute inset-0 flex items-center justify-center text-amber-500 group-hover:-translate-y-1 transition-transform duration-300">
             <ArrowUp size={24} />
           </div>
         </motion.div>

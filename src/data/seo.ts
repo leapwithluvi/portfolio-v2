@@ -12,7 +12,7 @@ const latestExperience = experiences[0];
 
 export const seo = {
     title: `${profile.name} | ${profile.title}`,
-    description: profile.bio.short,
+    description: "Specialized in building full-scale web solutions using modern frameworks and performance-driven architectures. A Software Engineering student from Kutai Kartanegara committed to professional-grade development.",
     keywords: `${profile.name}, Software Engineering, SMK Negeri 1 Tenggarong, SMKN 1 Tenggarong, SMK 1 Tenggarong, Tenggarong, Kutai Kartanegara, Programmer Tenggarong, Siswa SMKN 1 Tenggarong, Borneo Developer, Fullstack Web Developer, AI Engineer, ${latestExperience.company}, ${techStack.map(s => s.name).join(", ")}, Portfolio`,
     author: profile.name,
     url: "https://luvi.my.id",
@@ -61,7 +61,7 @@ export const personJsonLd = {
     "Web Development",
     "Fullstack Development",
     ...techStack.map((s) => s.name),
-    ...skills.map((s) => s.title),
+    ...skills.map((s) => s.titleKey),
   ],
 };
 

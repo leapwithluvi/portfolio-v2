@@ -19,10 +19,10 @@ export interface Experience {
 
 
 export const statistics = [
-  { label: "Years of Crafting Code", value: "3" },
-  { label: "Months Internship Experience", value: "6" },
-  { label: "Years of Learning to Code", value: "2+" },
-  { label: "Projects Published", value: "6+" },
+  { labelKey: "stat1", value: "3" },
+  { labelKey: "stat2", value: "6" },
+  { labelKey: "stat3", value: "2+" },
+  { labelKey: "stat4", value: "6+" },
 ];
 
 export const experiences: Experience[] = [

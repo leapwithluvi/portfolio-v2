@@ -1,137 +1,132 @@
 "use client"
  
 import { motion } from "motion/react";
-import { ArrowUpRight, Download, Code2 } from "lucide-react";
 import Image from "next/image";
 import { profile } from "@/data/profile";
-import { sectionContent } from "@/data/sections";
-import { GridPattern } from "@/components/ui/grid-pattern";
-import Magnetic from "@/components/ui/Magnetic";
- 
-const HeroImage = motion(Image);
+import { ArrowDownRight} from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
  
 export const HeroSection = () => {
+  const { t } = useTranslation();
   return (
     <section
       id="home"
-      className="relative flex justify-center items-center min-h-[90vh] pt-32 pb-16 overflow-hidden"
+      className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-background"
     >
-      {/* Background Grid Pattern - Contained within 1280px */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div
-          className="max-w-[1280px] mx-auto h-full relative"
-          style={{
-            maskImage:
-              "radial-gradient(circle at center, black 0%, transparent 80%)",
-            WebkitMaskImage:
-              "radial-gradient(circle at center, black 0%, transparent 80%)",
-          }}
+      <div className="max-container relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+        {/* RIGHT CONTENT: PORTRAIT (Top on Mobile) */}
+        <motion.div
+          className="order-1 lg:order-2 flex-1 relative w-full lg:w-auto flex justify-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <GridPattern
-            width={40}
-            height={40}
-            strokeDasharray={"4 4"}
-            className="fill-foreground/2 stroke-foreground/15 opacity-50"
-          />
-        </div>
-      </div>
+          {/* Image Container with Sharp Border - PROPORTIONAL SIZE */}
+          <div className="relative aspect-[4/5] w-full max-w-[300px] lg:max-w-[380px] group">
+            <div className="absolute -inset-3 border border-border opacity-50 group-hover:scale-105 transition-transform duration-700" />
+            {/* Image Wrapper for contained zoom */}
+            <div className="absolute inset-0 border border-border z-20 overflow-hidden">
+              <Image
+                src={profile.image}
+                alt={profile.name}
+                fill
+                className="object-cover transition-transform duration-1000 scale-100 group-hover:scale-110"
+                priority
+              />
+            </div>
 
-      <div className="max-container relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 w-full">
-        {/* LEFT COLUMN: Text Content */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-8 max-w-2xl flex-1">
-          {/* Badge */}
+            {/* Technical Metadata Overlays */}
+            <div className="absolute bottom-6 left-6 z-30 flex flex-col gap-1">
+              <span className="text-white text-[9px] uppercase font-mono tracking-widest bg-black/80 px-2 py-1">
+                Identity: {profile.name}
+              </span>
+              <span className="text-white text-[9px] uppercase font-mono tracking-widest bg-black/80 px-2 py-1">
+                Origin: {profile.location.city}, {profile.location.region}, 
+              </span>
+            </div>
+
+            {/* Sharp Corner Indicators */}
+            <div className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-amber-500 z-30" />
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-amber-500 z-30" />
+          </div>
+        </motion.div>
+
+        {/* LEFT CONTENT: TYPOGRAPHY (Bottom on Mobile) */}
+        <div className="order-2 lg:order-1 flex-1 flex flex-col gap-10 items-center lg:items-start text-center lg:text-left">
+          {/* Status Badge - Enterprise Style */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 rounded-full border border-yellow-600/30 bg-yellow-600/5 text-yellow-600 text-xs md:text-sm font-bold backdrop-blur-sm"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-4 px-3 py-1.5 border border-border bg-muted/10"
           >
-            <Code2 size={16} />
-            <span>{profile.title}</span>
+            <span className="text-[9px] font-bold text-amber-500 uppercase tracking-widest">
+              {t.hero.badge}
+            </span>
+            <div className="w-px h-3 bg-border" />
+            <span className="text-label text-[9px] tracking-widest opacity-60">
+              {profile.title}
+            </span>
           </motion.div>
 
-          <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] tracking-tight text-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            {sectionContent.hero.headingBefore}{" "}
-            <span className="text-yellow-600">{sectionContent.hero.headingAccent}</span>{" "}
-            {sectionContent.hero.headingAfter}
-          </motion.h1>
+          {/* Massive Heading */}
+          <div className="relative">
+            <motion.h1
+              className="text-[12vw] lg:text-7xl xl:text-8xl font-serif font-bold text-foreground leading-[0.95] tracking-tighter max-w-4xl"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {t.hero.title}
+            </motion.h1>
+
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "80px" }}
+              transition={{ delay: 0.5, duration: 1 }}
+              className="h-[1px] bg-amber-500 mt-8"
+            />
+          </div>
 
           <motion.p
-            className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-xl text-center lg:text-left md:text-wrap text-justify md:text-left"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl font-light"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 1 }}
           >
-            {sectionContent.hero.intro}{" "}
-            <span className="text-foreground font-semibold">
-              {profile.name}
-            </span>
-            , {sectionContent.hero.tagline}
+            {t.hero.tagline}
           </motion.p>
 
-          {/* CTAs */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full px-4 sm:px-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            <Magnetic>
+          {/* Professional Action Group */}
+          <div className="flex flex-col items-center lg:items-start gap-0 mt-4 w-full">
+            <motion.div
+              className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 1 }}
+            >
               <a
                 href="#work"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document
-                    .querySelector("#work")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full sm:w-auto px-8 py-4 bg-yellow-600 text-zinc-950 rounded-full font-bold shadow-lg shadow-yellow-600/20 hover:bg-yellow-700 transition-all duration-300 flex items-center justify-center gap-2 group"
+                className="group w-full sm:w-auto flex items-center justify-center gap-4 px-10 py-5 bg-foreground text-background font-bold tracking-[0.2em] uppercase text-[10px] hover:bg-amber-500 transition-all duration-500"
               >
-                {sectionContent.hero.ctaWork}
-                <ArrowUpRight
-                  size={20}
-                  className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                {t.hero.ctaWork}
+                <ArrowDownRight
+                  size={16}
+                  className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"
                 />
               </a>
-            </Magnetic>
-            <Magnetic>
-              <a 
+              <a
                 href={profile.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 bg-background border border-border text-foreground rounded-full font-bold glass hover:bg-muted transition-all duration-300 flex items-center justify-center gap-2"
+                className="group w-full sm:w-auto flex items-center justify-center gap-4 px-10 py-5 border border-border text-foreground font-bold tracking-[0.2em] uppercase text-[10px] hover:bg-muted/30 transition-all duration-500"
               >
-                <Download size={20} />
-                {sectionContent.hero.ctaResume}
+                {t.hero.ctaResume}
+                <ArrowDownRight
+                  size={16}
+                  className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"
+                />
               </a>
-            </Magnetic>
-          </motion.div>
-        </div>
-
-        {/* RIGHT COLUMN: Refined Portrait Image */}
-        <div
-          className="relative w-full max-w-sm lg:max-w-[400px] flex justify-center lg:justify-end"
-        >
-          <div className="relative group">
-            <div className="relative glass rounded-[3rem] p-4 shadow-2xl overflow-hidden aspect-[4/5] w-[280px] md:w-[320px] lg:w-[360px]">
-              <HeroImage
-                src={profile.image}
-                alt={`${profile.name} - Software Engineering Student at ${profile.education}`}
-                fill
-                quality={85}
-                sizes="(max-width: 768px) 280px, (max-width: 1200px) 360px, 400px"
-                className="w-full h-full object-cover rounded-[2rem] filter brightness-95 grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                priority
-                fetchPriority="high"
-                decoding="async"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

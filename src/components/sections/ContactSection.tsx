@@ -1,94 +1,91 @@
 "use client"
- 
+
 import { motion } from "motion/react";
-import { Mail, MessageSquare } from "lucide-react";
-import { profile } from "@/data/profile";
-import { sectionContent } from "@/data/sections";
 import { socials } from "@/data/socials";
-import JsonContactCard from "@/components/JsonContactCard";
-import Magnetic from "@/components/ui/Magnetic";
-import { useIsMobile } from "@/hooks/use-is-mobile";
- 
+import { useTranslation } from "@/hooks/useTranslation";
+
 export const ContactSection = () => {
-  const isMobile = useIsMobile();
+  const { t } = useTranslation();
+
   return (
-    <section id="contact" className="relative w-full py-24 overflow-hidden">
-      <div className="max-container flex flex-col items-center">
-        {/* Content */}
-        <motion.div
-          className="flex flex-col items-center text-center max-w-5xl px-4"
+    <section id="contact" className="relative py-32 md:py-64 overflow-hidden bg-background">
+      <div className="max-container flex flex-col items-center text-center gap-12 md:gap-24">
+        <div className="flex flex-col gap-10">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-label text-amber-500"
+          >
+            {t.contact.badge}
+          </motion.div>
+          
+          <div className="overflow-hidden pb-4">
+            <motion.h2 
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[12vw] md:text-[10vw] font-serif font-bold text-foreground leading-[0.9] tracking-tighter"
+            >
+              {t.contact.title}
+            </motion.h2>
+          </div>
+        </div>
+
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-xl md:text-3xl text-muted-foreground max-w-3xl font-light leading-relaxed"
+        >
+          {t.contact.description}
+        </motion.p>
+
+        <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: isMobile }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ delay: 0.5 }}
+          className="flex flex-col md:flex-row gap-0 mt-12 w-full max-w-5xl border border-border"
         >
-          <div className="flex items-center gap-2 mb-4 text-yellow-600 font-bold uppercase tracking-widest text-xs">
-            <MessageSquare size={16} />
-            <span>{sectionContent.contact.badge}</span>
-          </div>
-          
-          <h2 className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground mb-6 leading-tight">
-            {sectionContent.contact.title}
-          </h2>
- 
-          <p className="text-base md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl text-center">
-            {sectionContent.contact.description}
-          </p>
- 
-          {/* Main Action Call */}
-          <Magnetic>
-            <motion.a
-              href={socials.find(s => s.name === "Email")?.href || "#"}
-              whileHover={{ scale: 1.05 }}
-              className="px-10 py-5 bg-yellow-600 text-zinc-950 rounded-full font-bold shadow-2xl shadow-yellow-600/20 hover:bg-yellow-700 transition-all flex items-center gap-2 text-lg mb-16"
-            >
-              Say Hello
-              <Mail size={20} />
-            </motion.a>
-          </Magnetic>
-   
-          {/* Interactive JSON Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: isMobile }}
-            transition={{ delay: 0.4 }}
-            className="w-full"
-          >
-            <JsonContactCard />
-          </motion.div>
+           <div className="flex-1 flex flex-col gap-6 border-b md:border-b-0 md:border-r border-border p-8 md:p-16 hover:bg-muted/10 transition-all group">
+              <span className="text-label opacity-30 text-left">Primary_Channel</span>
+              <a 
+                href={socials.find(s => s.name === "Email")?.href || "#"} 
+                className="text-2xl md:text-4xl lg:text-5xl font-serif font-bold hover:text-amber-500 transition-colors truncate text-left tracking-tighter"
+              >
+                {socials.find(s => s.name === "Email")?.href.replace('mailto:', '') || "leapwithluvi@gmail.com"}
+              </a>
+           </div>
+           
+           <div className="flex-1 flex flex-col gap-6 p-8 md:p-16 hover:bg-muted/10 transition-all group">
+              <span className="text-label opacity-30 text-left">Digital_Nodes</span>
+              <div className="flex flex-wrap gap-x-12 gap-y-6 justify-start">
+                 {socials.filter(s => s.name !== "Email").map((social) => (
+                    <a 
+                      key={social.name} 
+                      href={social.href} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-xl md:text-2xl lg:text-3xl font-serif font-bold hover:text-amber-500 transition-colors tracking-tighter"
+                    >
+                      {social.name}
+                    </a>
+                 ))}
+              </div>
+           </div>
+        </motion.div>
 
-          {/* Social Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 w-full max-w-3xl font-bold">
-            {socials.filter(s => s.name !== "Email").slice(0, 4).map((social) => (
-              <Magnetic key={social.name}>
-                <a 
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-3 md:p-4 glass rounded-xl md:rounded-2xl hover:bg-muted transition-all group w-full h-full"
-                  aria-label={social.name}
-                >
-                  {social.icon && (
-                    <div 
-                      className="w-5 h-5 bg-foreground group-hover:bg-yellow-600 transition-colors"
-                      style={{
-                        maskImage: `url(${social.icon})`,
-                        maskSize: 'contain',
-                        maskRepeat: 'no-repeat',
-                        maskPosition: 'center',
-                        WebkitMaskImage: `url(${social.icon})`,
-                        WebkitMaskSize: 'contain',
-                        WebkitMaskRepeat: 'no-repeat',
-                        WebkitMaskPosition: 'center',
-                      }}
-                    />
-                  )}
-                  <span className="text-sm">{social.name}</span>
-                </a>
-              </Magnetic>
-            ))}
-          </div>
+        <motion.div
+           initial={{ opacity: 0 }}
+           whileInView={{ opacity: 1 }}
+           transition={{ delay: 0.8 }}
+        >
+           <a
+              href={socials.find(s => s.name === "Email")?.href || "#"}
+              className="group flex items-center gap-6 px-12 py-6 md:px-24 md:py-10 bg-foreground text-background font-bold tracking-[0.4em] uppercase text-xs hover:bg-amber-500 transition-all duration-700"
+           >
+              {t.contact.establish}
+              <div className="w-2 h-2 bg-background rounded-full group-hover:bg-background animate-pulse" />
+           </a>
         </motion.div>
       </div>
     </section>

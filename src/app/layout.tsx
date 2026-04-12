@@ -4,7 +4,6 @@ import "./globals.css";
 import { seo, personJsonLd, projectJsonLd, serviceJsonLd } from "@/data/seo";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import Spotlight from "@/components/ui/Spotlight";
 import SmoothScroll from "@/components/SmoothScroll";
 import Preloader from "@/components/Preloader";
 import { Grain } from "@/components/ui/Grain";
@@ -12,6 +11,7 @@ import Script from "next/script";
 import { GlobalUI } from "@/components/GlobalUI";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -89,28 +89,23 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://cdn.simpleicons.org" crossOrigin="anonymous" />
+        {/* Anti-Flicker Theme Script */}
+        <Script id="show-theme">
+          {`
+            (function() {
+              try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (e) {}
+            })();
+          `}
+        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased min-h-screen bg-background text-foreground transition-colors duration-300`}
       >
-        {/* Anti-Flicker Theme Script */}
-        <Script
-          id="show-theme"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  // For a 'light-first' experience, we only apply 'dark' if specifically saved
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
 
         {/* SEO JSON-LD Person */}
         <Script
@@ -169,24 +164,26 @@ export default function RootLayout({
         {/* Global UI Components */}
         <GlobalUI />
         <Grain />
-        <Spotlight />
 
-        <div className="relative flex min-h-screen flex-col">
-          {/* Global Vertical Dividers */}
-          <div className="absolute left-[calc(50%-640px)] top-0 bottom-0 w-[1px] bg-border/50 hidden xl:block pointer-events-none z-0" />
-          <div className="absolute right-[calc(50%-640px)] top-0 bottom-0 w-[1px] bg-border/50 hidden xl:block pointer-events-none z-0" />
+        <LanguageProvider>
+          <div className="relative flex min-h-screen flex-col">
+            {/* Global Vertical Dividers - Simplified for performance */}
+            <div className="absolute left-[calc(50%-600px)] top-0 bottom-0 w-[1px] bg-border/20 hidden xl:block pointer-events-none z-0" />
+            <div className="absolute right-[calc(50%-600px)] top-0 bottom-0 w-[1px] bg-border/20 hidden xl:block pointer-events-none z-0" />
 
-          <SmoothScroll>
-            <Preloader />
-            <Navbar />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </SmoothScroll>
-          <SpeedInsights />
-          <Analytics />
-        </div>
+            <SmoothScroll>
+              <Preloader />
+              <Navbar />
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </SmoothScroll>
+            <SpeedInsights />
+            <Analytics />
+          </div>
+        </LanguageProvider>
+
       </body>
     </html>
   );

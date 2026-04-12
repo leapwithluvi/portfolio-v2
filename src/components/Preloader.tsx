@@ -133,9 +133,9 @@ export default function Preloader() {
             variants={getLayerVariants(0.1)}
             initial="initial"
             exit="exit"
-            className="absolute inset-0 z-20 bg-yellow-600 hidden md:block transform-gpu"
+            className="absolute inset-0 z-20 bg-amber-500 hidden md:block transform-gpu"
           >
-            <svg className="absolute top-[99.5%] w-full h-[200px] fill-yellow-600">
+            <svg className="absolute top-[99.5%] w-full h-[200px] fill-amber-500">
               <motion.path
                 variants={getCurveVariants(0.1)}
                 initial="initial"
@@ -160,7 +160,7 @@ export default function Preloader() {
                   transition={{ duration: 0.2 }}
                   className="flex items-center gap-3 text-white text-4xl md:text-6xl font-serif z-10"
                 >
-                  <span className="block w-2 h-2 rounded-full bg-yellow-600 animate-pulse" />
+                  <span className="block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
                   {words[index]}
                 </motion.p>
 
