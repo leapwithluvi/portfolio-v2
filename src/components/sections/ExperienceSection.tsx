@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { MapPin } from "lucide-react";
 import { experiences } from "@/data/experience";
 import { useTranslation } from "@/hooks/useTranslation";
+import Image from "next/image";
 
 export const ExperienceSection = () => {
   const { t } = useTranslation();
@@ -38,10 +39,11 @@ export const ExperienceSection = () => {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                   {exp.image && (
                     <div className="relative w-20 h-20 transition-all duration-700 bg-muted/20 border border-border overflow-hidden p-3 flex-shrink-0">
-                      <img
+                      <Image
                         src={exp.image}
                         alt={exp.company}
-                        className="w-full h-full object-contain"
+                        fill
+                        className="object-contain p-3"
                       />
                     </div>
                   )}
