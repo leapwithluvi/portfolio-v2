@@ -12,6 +12,17 @@ export default function Preloader() {
   const isHomePage = pathname === "/";
 
   useEffect(() => {
+    if (isLoading && isHomePage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isLoading, isHomePage]);
+
+  useEffect(() => {
     if (!isHomePage) {
       setIsLoading(false);
       return;
@@ -36,12 +47,6 @@ export default function Preloader() {
     };
 
     requestAnimationFrame(updateCounter);
-
-    // Lock scroll
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
   }, [isHomePage]);
 
   // Dispatch event when loading is complete
