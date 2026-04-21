@@ -1,12 +1,10 @@
 export const id = {
   nav: {
-    home: "Beranda",
-    about: "Tentang",
-    skills: "Keahlian",
-    experience: "Pengalaman",
-    projects: "Proyek",
-    certificates: "Sertifikat",
-    contact: "Kontak",
+    home: "Home",
+    about: "About",
+    experience: "Experience",
+    projects: "Projects",
+    contact: "Contact",
     connect: "Terhubung"
   },
   common: {

@@ -12,7 +12,7 @@ export const SkillsSection = () => {
       <div className="max-container">
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-12 md:mb-24">
           <div className="flex flex-col gap-10 max-w-3xl">
-            <div className="text-label text-amber-500">{t.skills.badge}</div>
+            <div className="text-label text-accent">{t.skills.badge}</div>
             <h2 className="text-6xl md:text-8xl font-serif font-bold text-foreground leading-[0.8] tracking-tighter">
               {t.skills.title}
             </h2>
@@ -37,7 +37,7 @@ export const SkillsSection = () => {
                 className="bg-background p-12 flex flex-col gap-8 hover:bg-muted/10 transition-colors group"
               >
                 <div className="flex justify-between items-start">
-                   <h3 className="text-3xl font-serif font-bold group-hover:text-amber-500 transition-colors">
+                   <h3 className="text-3xl font-serif font-bold group-hover:text-accent transition-colors">
                      {(t.skills as any)[category.titleKey]}
                    </h3>
                    <span className="text-meta opacity-20">0{index + 1}</span>
@@ -47,7 +47,7 @@ export const SkillsSection = () => {
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-meta uppercase tracking-widest border border-border px-3 py-1 bg-secondary/50 group-hover:border-amber-500/50 transition-colors"
+                      className="text-meta uppercase tracking-widest border border-border px-3 py-1 bg-secondary/50 group-hover:border-accent/50 transition-colors"
                     >
                       {skill}
                     </span>

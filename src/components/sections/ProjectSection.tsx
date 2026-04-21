@@ -12,7 +12,7 @@ export const ProjectSection: React.FC = () => {
       <div className="max-container">
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-16 md:mb-24">
           <div className="flex flex-col gap-10 max-w-4xl">
-            <div className="text-label text-amber-500">{t.projects.badge}</div>
+            <div className="text-label text-accent">{t.projects.badge}</div>
             <h2 className="text-6xl md:text-8xl font-serif font-bold text-foreground leading-[0.8] tracking-tighter">
               {t.projects.title}
             </h2>
@@ -27,8 +27,8 @@ export const ProjectSection: React.FC = () => {
 
         {/* Featured Selection Label */}
         <div className="mb-8 flex items-center gap-4">
-           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-500">{t.projects.featured}</div>
-           <div className="h-px w-12 bg-amber-500/50" />
+           <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">{t.projects.featured}</div>
+           <div className="h-px w-12 bg-accent/50" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
@@ -47,8 +47,8 @@ export const ProjectSection: React.FC = () => {
                
                <div className="flex flex-col gap-6 mt-auto">
                  <div className="flex flex-col gap-2">
-                    <div className="text-meta uppercase tracking-widest text-amber-500/60">{project.classification}</div>
-                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold group-hover:text-amber-500 transition-colors leading-none tracking-tighter">
+                    <div className="text-meta uppercase tracking-widest text-accent/60">{project.classification}</div>
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold group-hover:text-accent transition-colors leading-none tracking-tighter">
                       {project.nameProject}
                     </h3>
                  </div>
@@ -62,7 +62,7 @@ export const ProjectSection: React.FC = () => {
                      href={project.linkRepo} 
                      target="_blank" 
                      rel="noopener noreferrer"
-                     className="text-label text-[10px] border-b border-border pb-1 hover:text-amber-500 hover:border-amber-500 transition-all font-bold uppercase tracking-[0.2em]"
+                     className="text-label text-[10px] border-b border-border pb-1 hover:text-accent hover:border-accent transition-all font-bold uppercase tracking-[0.2em]"
                    >
                      {t.projects.inspect}
                    </a>
@@ -102,7 +102,7 @@ export const ProjectSection: React.FC = () => {
                 </div>
                 
                 <div className="lg:col-span-4 flex flex-col gap-1">
-                  <h4 className="text-sm font-bold uppercase tracking-tight group-hover:text-amber-500 transition-colors">
+                  <h4 className="text-sm font-bold uppercase tracking-tight group-hover:text-accent transition-colors">
                     {project.nameProject}
                   </h4>
                   <div className="lg:hidden text-[10px] opacity-40 uppercase tracking-widest">{project.classification}</div>
@@ -149,7 +149,7 @@ export const ProjectSection: React.FC = () => {
             </p>
             <a 
               href="#contact" 
-              className="group flex items-center gap-4 px-10 py-5 bg-foreground text-background font-bold tracking-[0.2em] uppercase text-[10px] hover:bg-amber-500 transition-all duration-500"
+              className="group flex items-center gap-4 px-10 py-5 bg-primary text-primary-foreground font-bold tracking-[0.2em] uppercase text-[10px] hover:opacity-90 transition-all duration-500"
             >
               {t.contact.getInTouch}
               <ArrowDownRight size={16} className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />

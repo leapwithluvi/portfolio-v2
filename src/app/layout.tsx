@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Syne, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { seo, personJsonLd, projectJsonLd, serviceJsonLd } from "@/data/seo";
 import { Navbar } from "@/components/Navbar";
@@ -13,20 +13,22 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { LanguageProvider } from "@/context/LanguageContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument",
-  weight: "400",
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -95,8 +97,9 @@ export default function RootLayout({
             (function() {
               try {
                 var theme = localStorage.getItem('theme');
-                if (theme === 'dark') {
+                if (!theme || theme === 'dark') {
                   document.documentElement.classList.add('dark');
+                  if (!theme) localStorage.setItem('theme', 'dark');
                 }
               } catch (e) {}
             })();
@@ -104,7 +107,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased min-h-screen bg-background text-foreground transition-colors duration-300`}
+        className={`${syne.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} antialiased min-h-screen bg-background text-foreground transition-colors duration-300`}
       >
 
         {/* SEO JSON-LD Person */}

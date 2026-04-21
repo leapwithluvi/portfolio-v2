@@ -47,7 +47,7 @@ export const Navbar: React.FC = () => {
             <span className="text-sm font-bold uppercase tracking-[0.1em] text-foreground">
               {profile.logoName}
             </span>
-            <div className="w-1.5 h-1.5 bg-amber-500 rounded-full group-hover:animate-ping" />
+            <div className="w-1.5 h-1.5 bg-accent rounded-full group-hover:animate-ping" />
           </a>
  
           {/* Nav Links */}
@@ -56,10 +56,10 @@ export const Navbar: React.FC = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-label text-[9px] hover:text-amber-500 transition-colors relative group"
+                className="text-label text-[9px] text-muted-foreground hover:text-accent transition-colors relative group"
               >
                 {(t.nav as any)[link.name.toLowerCase()]}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber-500 transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
             
@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
             
             <a
               href={`mailto:${socials.find(s => s.name === "Email")?.href.replace('mailto:', '') || "@"}`}
-              className="px-6 py-2 bg-foreground text-background text-[9px] font-bold uppercase tracking-widest hover:bg-amber-500 transition-all"
+              className="px-6 py-2 bg-primary text-primary-foreground text-[9px] font-bold uppercase tracking-widest hover:opacity-90 transition-all"
             >
               {t.nav.connect}
             </a>
@@ -120,7 +120,7 @@ export const Navbar: React.FC = () => {
                 <span className="text-sm font-bold uppercase tracking-[0.1em] text-foreground">
                   {profile.logoName}
                 </span>
-                <div className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
+                <div className="w-1.5 h-1.5 bg-accent rounded-full" />
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -142,7 +142,7 @@ export const Navbar: React.FC = () => {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 0.5, x: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="text-[10px] items-start flex text-left font-bold uppercase tracking-widest text-amber-500 mb-2"
+                  className="text-[10px] items-start flex text-left font-bold uppercase tracking-widest text-accent mb-2"
                 >
                   {t.nav.about} {/* Using About as a proxy for navigation or add a specific key */}
                 </motion.span>
@@ -161,7 +161,7 @@ export const Navbar: React.FC = () => {
                       <a
                         href={link.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-2xl sm:text-4xl md:text-5xl font-serif font-bold text-foreground border-b border-border pb-3 hover:text-amber-500 transition-colors text-left block"
+                        className="text-2xl sm:text-4xl md:text-5xl font-serif font-bold text-foreground border-b border-border pb-3 hover:text-accent transition-colors text-left block"
                       >
                         {(t.nav as any)[link.name.toLowerCase()]}
                       </a>
@@ -187,7 +187,7 @@ export const Navbar: React.FC = () => {
                 </button>
                 <a
                   href={`mailto:${socials.find(s => s.name === "Email")?.href.replace('mailto:', '') || "@"}`}
-                  className="py-4 bg-foreground text-background text-[10px] font-bold uppercase tracking-widest text-center hover:bg-amber-500 transition-colors flex items-center justify-center"
+                  className="py-4 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest text-center hover:opacity-90 transition-colors flex items-center justify-center"
                 >
                   {t.nav.connect}
                 </a>

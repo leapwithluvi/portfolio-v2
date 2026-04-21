@@ -1,6 +1,6 @@
 "use client";
  
-import { profile } from "@/data/profile";
+
 import { statistics } from "@/data/experience";
 import { useTranslation } from "@/hooks/useTranslation";
  
@@ -10,14 +10,14 @@ export const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative py-20 md:py-32 overflow-hidden border-y border-border bg-background"
+      className="relative z-20 py-20 md:py-32 overflow-hidden border-y border-border bg-background"
     >
       <div className="max-container flex flex-col gap-32">
         {/* Row 1: The Narrative */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           <div className="lg:col-span-4 flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-               <div className="text-label text-amber-500">{t.about.badge}</div>
+               <div className="text-label text-accent">{t.about.badge}</div>
                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-foreground leading-[0.8] tracking-tighter">
                  {t.about.title}
                </h2>
@@ -55,14 +55,14 @@ export const AboutSection = () => {
             <div key={idx} className="bg-background p-8 md:p-12 flex flex-col gap-4 md:gap-6 group hover:bg-muted/10 transition-colors">
               <div className="flex justify-between items-start">
                 <span className="text-[10px] uppercase font-mono tracking-widest opacity-30">Stat_{idx + 1}</span>
-                <div className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
+                <div className="w-1.5 h-1.5 bg-accent rounded-full" />
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-4xl md:text-6xl lg:text-8xl font-serif font-bold text-foreground leading-none">
                    {stat.value}
                 </span>
                 <span className="text-[10px] md:text-label opacity-50 uppercase tracking-widest">
-                  {(t.about as any)[stat.labelKey]}
+                  {(t.about as Record<string, string>)[stat.labelKey]}
                 </span>
               </div>
             </div>

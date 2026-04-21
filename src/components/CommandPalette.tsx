@@ -72,7 +72,7 @@ export default function CommandPalette() {
     <>
       {/* Keyboard Shortcut Indicator (Hidden on Mobile) */}
       <div className="fixed bottom-8 left-8 z-[60] hidden lg:flex items-center gap-3 px-4 py-2 bg-background border border-border text-[9px] font-bold text-foreground uppercase tracking-[0.2em] shadow-2xl">
-        <Keyboard size={12} className="text-amber-500" />
+        <Keyboard size={12} className="text-accent" />
         Press <span className="px-1.5 py-0.5 border border-border text-foreground">CTRL</span> <span className="px-1.5 py-0.5 border border-border text-foreground">K</span> to interact
       </div>
 
@@ -95,7 +95,7 @@ export default function CommandPalette() {
             >
               {/* Search Bar */}
               <div className="flex items-center px-6 py-5 border-b border-border">
-                <Search className="text-amber-500 mr-4" size={18} />
+                <Search className="text-accent mr-4" size={18} />
                 <input
                   autoFocus
                   placeholder="COMMAND_QUERY..."
@@ -105,7 +105,7 @@ export default function CommandPalette() {
                 />
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:text-amber-500 transition-colors"
+                  className="p-1 hover:text-accent transition-colors"
                 >
                   <X size={18} />
                 </button>
@@ -120,17 +120,17 @@ export default function CommandPalette() {
                       <button
                         key={action.name}
                         onClick={() => handleAction(action.href)}
-                        className="w-full flex items-center justify-between px-6 py-4 border-b border-transparent hover:border-amber-500/20 hover:bg-muted/30 transition-all group text-left"
+                        className="w-full flex items-center justify-between px-6 py-4 border-b border-transparent hover:border-accent/20 hover:bg-muted/30 transition-all group text-left"
                       >
                         <div className="flex items-center gap-4">
                           <div className="text-meta opacity-20 group-hover:opacity-100 transition-opacity">0{idx + 1}</div>
                           <div className="flex flex-col">
-                             <span className="text-label text-[11px] group-hover:text-amber-500 transition-colors">{action.name}</span>
+                             <span className="text-label text-[11px] group-hover:text-accent transition-colors">{action.name}</span>
                              <span className="text-[9px] uppercase tracking-widest opacity-30 font-mono">system.nav.{action.name.toLowerCase()}</span>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-[9px] font-bold text-foreground/40 px-2 py-1 border border-border group-hover:text-amber-500 group-hover:border-amber-500 transition-colors">
+                          <span className="text-[9px] font-bold text-foreground/40 px-2 py-1 border border-border group-hover:text-accent group-hover:border-accent transition-colors">
                             {action.shortcut}
                           </span>
                         </div>

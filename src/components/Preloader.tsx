@@ -11,8 +11,8 @@ export default function Preloader() {
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
-  // If not on home page, don't render preloader at all
-  if (pathname !== "/") return null;
+  // If not on home page, we won't render the content, but we must call hooks
+  const isHomePage = pathname === "/";
 
   const [count, setCount] = useState(0);
 
@@ -93,33 +93,33 @@ export default function Preloader() {
     initial: { y: 0 },
     exit: { 
       y: "-100vh",
-      transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay } 
+      transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] as [number, number, number, number], delay: transitionDelay } 
     },
   });
 
   const getCurveVariants = (transitionDelay: number) => ({
     initial: {
       d: initialPath,
-      transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] as any },
+      transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] },
     },
     exit: {
       d: targetPath,
-      transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] as any, delay: transitionDelay },
+      transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] as [number, number, number, number], delay: transitionDelay },
     },
   });
 
   return (
     <AnimatePresence mode="wait">
-      {isLoading && (
+      {isHomePage && isLoading && (
         <div className="fixed inset-0 z-[9999] pointer-events-none">
           {/* Layer 1: Gray Background Shade - Desktop Only */}
           <motion.div
             variants={getLayerVariants(0.2)}
             initial="initial"
             exit="exit"
-            className="absolute inset-0 z-10 bg-neutral-900 hidden md:block transform-gpu"
+            className="absolute inset-0 z-10 bg-background-secondary hidden md:block transform-gpu"
           >
-            <svg className="absolute top-[99.5%] w-full h-[200px] fill-neutral-900">
+            <svg className="absolute top-[99.5%] w-full h-[200px] fill-background-secondary">
               <motion.path
                 variants={getCurveVariants(0.2)}
                 initial="initial"
@@ -133,9 +133,9 @@ export default function Preloader() {
             variants={getLayerVariants(0.1)}
             initial="initial"
             exit="exit"
-            className="absolute inset-0 z-20 bg-amber-500 hidden md:block transform-gpu"
+            className="absolute inset-0 z-20 bg-accent hidden md:block transform-gpu"
           >
-            <svg className="absolute top-[99.5%] w-full h-[200px] fill-amber-500">
+            <svg className="absolute top-[99.5%] w-full h-[200px] fill-accent">
               <motion.path
                 variants={getCurveVariants(0.1)}
                 initial="initial"
@@ -150,7 +150,7 @@ export default function Preloader() {
             variants={getLayerVariants(0)}
             initial="initial"
             exit="exit"
-            className="absolute inset-0 z-30 flex items-center justify-center bg-black pointer-events-auto shadow-[0_50px_100px_rgba(0,0,0,0.5)] transform-gpu"
+            className="absolute inset-0 z-30 flex items-center justify-center bg-background pointer-events-auto shadow-[0_50px_100px_rgba(0,0,0,0.5)] transform-gpu"
           >
             {dimension.width > 0 && (
               <>
@@ -158,18 +158,18 @@ export default function Preloader() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="flex items-center gap-3 text-white text-4xl md:text-6xl font-serif z-10"
+                  className="flex items-center gap-3 text-foreground text-4xl md:text-6xl font-serif z-10"
                 >
-                  <span className="block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                  <span className="block w-2 h-2 rounded-full bg-accent animate-pulse" />
                   {words[index]}
                 </motion.p>
 
                 {/* Counting Percentage - Now synced with words */}
-                <div className="absolute bottom-10 right-10 text-white/20 text-[12vw] font-bold font-serif leading-none select-none tracking-tighter">
+                <div className="absolute bottom-10 right-10 text-foreground/20 text-[12vw] font-bold font-serif leading-none select-none tracking-tighter">
                   {count}%
                 </div>
 
-                <svg className="absolute top-[99.5%] w-full h-[200px] fill-black">
+                <svg className="absolute top-[99.5%] w-full h-[200px] fill-background">
                   <motion.path
                     variants={getCurveVariants(0)}
                     initial="initial"

@@ -31,7 +31,7 @@ export const Footer = () => {
              <ul className="flex flex-col gap-3">
                {navLinks.map((link) => (
                  <li key={link.name}>
-                   <a href={link.href} className="text-label hover:text-amber-500 transition-colors uppercase text-[10px] tracking-widest">
+                   <a href={link.href} className="text-label hover:text-accent transition-colors uppercase text-[10px] tracking-widest">
                      {(t.nav as any)[link.name.toLowerCase()]}
                    </a>
                  </li>
@@ -69,7 +69,7 @@ export const Footer = () => {
              <div className="text-label opacity-30">{t.footer.connect}</div>
              <div className="flex flex-wrap gap-4">
                 {socials.map((social) => (
-                  <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-meta hover:text-amber-500 transition-colors uppercase">
+                  <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-meta hover:text-accent transition-colors uppercase">
                     {social.name}
                   </a>
                 ))}

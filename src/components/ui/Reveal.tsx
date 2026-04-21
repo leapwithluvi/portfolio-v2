@@ -16,6 +16,7 @@ export default function Reveal({ children, width = "100%" }: RevealProps) {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
       style={{ width }}
+      className="relative z-20 bg-background"
     >
       {children}
     </motion.div>

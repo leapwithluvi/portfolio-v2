@@ -14,7 +14,7 @@ export const ContactSection = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-label text-amber-500"
+            className="text-label text-accent"
           >
             {t.contact.badge}
           </motion.div>
@@ -50,7 +50,7 @@ export const ContactSection = () => {
               <span className="text-label opacity-30 text-left">Primary_Channel</span>
               <a 
                 href={socials.find(s => s.name === "Email")?.href || "#"} 
-                className="text-2xl md:text-4xl lg:text-5xl font-serif font-bold hover:text-amber-500 transition-colors truncate text-left tracking-tighter"
+                className="text-2xl md:text-4xl lg:text-5xl font-serif font-bold hover:text-accent transition-colors truncate text-left tracking-tighter"
               >
                 {socials.find(s => s.name === "Email")?.href.replace('mailto:', '') || "leapwithluvi@gmail.com"}
               </a>
@@ -65,7 +65,7 @@ export const ContactSection = () => {
                       href={social.href} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-xl md:text-2xl lg:text-3xl font-serif font-bold hover:text-amber-500 transition-colors tracking-tighter"
+                      className="text-xl md:text-2xl lg:text-3xl font-serif font-bold hover:text-accent transition-colors tracking-tighter"
                     >
                       {social.name}
                     </a>
@@ -81,7 +81,7 @@ export const ContactSection = () => {
         >
            <a
               href={socials.find(s => s.name === "Email")?.href || "#"}
-              className="group flex items-center gap-6 px-12 py-6 md:px-24 md:py-10 bg-foreground text-background font-bold tracking-[0.4em] uppercase text-xs hover:bg-amber-500 transition-all duration-700"
+              className="group flex items-center gap-6 px-12 py-6 md:px-24 md:py-10 bg-primary text-primary-foreground font-bold tracking-[0.4em] uppercase text-xs hover:opacity-90 transition-all duration-700"
            >
               {t.contact.establish}
               <div className="w-2 h-2 bg-background rounded-full group-hover:bg-background animate-pulse" />

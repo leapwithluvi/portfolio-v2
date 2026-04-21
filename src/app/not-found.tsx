@@ -31,7 +31,7 @@ export default function NotFound() {
           transition={{ duration: 0.8 }}
           className="mb-8"
         >
-          <span className="text-[120px] md:text-[200px] font-serif font-bold leading-none tracking-tighter text-amber-500 opacity-20">
+          <span className="text-[120px] md:text-[200px] font-serif font-bold leading-none tracking-tighter text-accent opacity-20">
             404
           </span>
         </motion.div>
@@ -42,7 +42,7 @@ export default function NotFound() {
           transition={{ delay: 0.2 }}
         >
           <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
-            Lost in the <span className="text-amber-500">Digital Void?</span>
+            Lost in the <span className="text-accent">Digital Void?</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-md mx-auto mb-12">
             The page you are looking for doesn&apos;t exist or has been moved to another dimension.
@@ -57,7 +57,7 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="px-8 py-4 bg-amber-500 text-zinc-950 rounded-full font-bold shadow-lg shadow-amber-500/20 hover:bg-amber-600 transition-all flex items-center justify-center gap-2 group"
+            className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all flex items-center justify-center gap-2 group"
           >
             <Home size={20} />
             Back to Home
@@ -73,7 +73,7 @@ export default function NotFound() {
       </div>
 
       {/* Decorative Blur */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full pointer-events-none -z-10" />
     </div>
   )
 }

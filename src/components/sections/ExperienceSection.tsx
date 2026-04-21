@@ -15,7 +15,7 @@ export const ExperienceSection = () => {
     >
       <div className="max-container">
         <div className="flex flex-col gap-12 mb-10 md:mb-20">
-          <div className="text-label text-amber-500">{t.experience.badge}</div>
+          <div className="text-label text-accent">{t.experience.badge}</div>
           <h2 className="text-6xl md:text-8xl font-serif font-bold text-foreground leading-[0.8] tracking-tighter">
             {t.experience.title}
           </h2>
@@ -45,7 +45,7 @@ export const ExperienceSection = () => {
                       />
                     </div>
                   )}
-                  <h3 className="text-4xl font-serif font-bold group-hover:text-amber-500 transition-colors">
+                  <h3 className="text-4xl font-serif font-bold group-hover:text-accent transition-colors">
                     {exp.company}
                   </h3>
                 </div>

@@ -20,7 +20,7 @@ export const CertificateSection = () => {
     <section id="certificates" className="relative py-20 md:py-32 overflow-hidden bg-background border-t border-border">
       <div className="max-container">
         <div className="flex flex-col gap-12 mb-12 md:mb-24">
-          <div className="text-label text-amber-500">{t.certificates.badge}</div>
+          <div className="text-label text-accent">{t.certificates.badge}</div>
           <h2 className="text-6xl md:text-8xl font-serif font-bold text-foreground leading-[0.8] tracking-tighter">
             {t.certificates.title}
           </h2>
@@ -37,7 +37,7 @@ export const CertificateSection = () => {
                     onClick={() => setActiveCategory(category)}
                     className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all relative py-2 ${
                         activeCategory === category 
-                        ? "text-amber-500" 
+                        ? "text-accent" 
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
@@ -45,7 +45,7 @@ export const CertificateSection = () => {
                     {activeCategory === category && (
                         <motion.div 
                             layoutId="activeTab"
-                            className="absolute -bottom-[33px] left-0 right-0 h-0.5 bg-amber-500 z-10"
+                            className="absolute -bottom-[33px] left-0 right-0 h-0.5 bg-accent z-10"
                         />
                     )}
                 </button>
@@ -73,7 +73,7 @@ export const CertificateSection = () => {
                 </div>
 
                 <div className="lg:col-span-4 flex flex-col gap-2">
-                  <h3 className="text-2xl md:text-3xl font-serif font-bold group-hover:text-amber-500 transition-colors tracking-tight">
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold group-hover:text-accent transition-colors tracking-tight">
                     {cert.title}
                   </h3>
                   <div className="text-meta opacity-50 uppercase tracking-widest text-[9px]">{cert.issuer}</div>
