@@ -1,13 +1,31 @@
 {
   "name": "portfolio-v2",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Enterprise-grade high-performance portfolio featuring minimalist aesthetics and optimized rendering paths.",
+  "author": "Luvi Aprilyansyah Gabriel <itsluvi13@gmail.com>",
+  "license": "MIT",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "react",
+    "performance",
+    "accessibility",
+    "enterprise-grade"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint": "next lint",
+    "lint:fix": "eslint --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "clean": "rimraf .next node_modules"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -29,6 +47,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
