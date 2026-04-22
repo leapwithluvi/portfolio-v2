@@ -25,8 +25,7 @@ export const HeroSection = () => {
           unoptimized
           className="object-cover opacity-80 dark:opacity-80"
           priority
-          // @ts-expect-error - fetchPriority is supported in modern browsers but not yet in all React types
-          fetchpriority="high"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background" />
       </div>
