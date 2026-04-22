@@ -34,16 +34,27 @@ export const GithubSection = () => {
     const frame = requestAnimationFrame(() => setMounted(true));
     
     async function fetchStats() {
+      // Try to load from cache first
+      const cached = localStorage.getItem(`github-stats-${username}`);
+      if (cached) {
+        try {
+          setStats(JSON.parse(cached));
+        } catch {
+          // Silent catch for invalid JSON
+        }
+      }
+
       try {
         const userRes = await fetch(`https://api.github.com/users/${username}`);
+        let githubData: Partial<GitHubStats> = {};
+
         if (userRes.ok) {
           const userData = await userRes.json();
-          setStats((prev) => ({
-            ...prev,
+          githubData = {
             repos: userData.public_repos || 0,
             followers: userData.followers || 0,
             yearJoined: userData.created_at ? new Date(userData.created_at).getFullYear() : 0,
-          }));
+          };
         }
 
         const contribRes = await fetch(`https://github-contributions-api.deno.dev/${username}.json`);
@@ -57,8 +68,14 @@ export const GithubSection = () => {
             const yearData = contribData.contributions.find((y: ContributionYear) => y.year === currentYear);
             if (yearData) total = yearData.totalContributions;
           }
-          setStats((prev) => ({ ...prev, contributions: total }));
+          githubData.contributions = total;
         }
+
+        setStats((prev) => {
+          const updated = { ...prev, ...githubData };
+          localStorage.setItem(`github-stats-${username}`, JSON.stringify(updated));
+          return updated;
+        });
       } catch (error) {
         console.error("Error fetching github stats:", error);
       }
@@ -87,8 +104,9 @@ export const GithubSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="text-[11px] font-bold uppercase tracking-widest text-foreground hover:text-accent transition-colors flex items-center gap-2 border-b border-foreground/20 pb-1"
+              aria-label={`Visit my GitHub profile @${username}`}
             >
-              @{username.toUpperCase()} <ExternalLink size={14} />
+              @{username.toUpperCase()} <ExternalLink size={14} aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -102,12 +120,12 @@ export const GithubSection = () => {
                 title={t.github.repos} 
                 value={stats.repos} 
                 label={t.github.publicRepos} 
-                icon={<Code size={14} />} 
+                icon={<Code size={14} aria-hidden="true" />} 
                 borderBottom
              />
              <StatBox 
                 title={t.github.follow} 
-                icon={<Users size={14} />} 
+                icon={<Users size={14} aria-hidden="true" />} 
                 value={stats.followers} 
                 label={t.github.followers} 
              />
@@ -119,14 +137,14 @@ export const GithubSection = () => {
                 title={t.github.total} 
                 value={stats.contributions.toLocaleString()} 
                 label={t.github.contributions} 
-                icon={<Terminal size={14} />} 
+                icon={<Terminal size={14} aria-hidden="true" />} 
                 borderBottom
              />
              <StatBox 
                 title={t.github.since} 
                 value={stats.yearJoined || "2025"} 
                 label={t.github.yearJoined} 
-                icon={<Calendar size={14} />} 
+                icon={<Calendar size={14} aria-hidden="true" />} 
              />
           </div>
 
@@ -134,10 +152,10 @@ export const GithubSection = () => {
           <div className="md:col-span-8 p-8 md:p-12 flex flex-col bg-background-secondary/50">
              <div className="flex justify-between items-start mb-10 w-full">
                 <div>
-                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-2">{t.github.contributionMap}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/80 mb-2">{t.github.contributionMap}</div>
                   <h3 className="text-3xl md:text-4xl font-serif font-bold text-foreground">{t.github.last12Months}</h3>
                 </div>
-                <div className="bg-muted text-muted-foreground px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase rounded-full">
+                <div className="bg-muted text-foreground/80 px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase rounded-full">
                   {stats.contributions > 0 ? stats.contributions.toLocaleString() : "-"} {t.github.total.toUpperCase()}
                 </div>
              </div>
@@ -162,9 +180,9 @@ export const GithubSection = () => {
              </div>
 
              {/* Custom Legend */}
-             <div className="mt-6 flex justify-between items-center text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+             <div className="mt-6 flex justify-between items-center text-[10px] font-bold tracking-widest text-foreground/80 uppercase">
                 <span>{t.github.less}</span>
-                <div className="flex gap-2">
+                <div className="flex gap-2" aria-hidden="true">
                    <div className="w-3.5 h-3.5 rounded-sm border border-border/50 bg-[#E2EAF0] dark:bg-[#1A3A4A]" />
                    <div className="w-3.5 h-3.5 rounded-sm border border-border/50 bg-[#A8D8EA] dark:bg-[#2A5068]" />
                    <div className="w-3.5 h-3.5 rounded-sm border border-border/50 bg-[#7EC8E3] dark:bg-[#4FA3C7]" />
@@ -192,14 +210,14 @@ interface StatBoxProps {
 const StatBox = ({ title, value, label, icon, borderBottom }: StatBoxProps) => (
   <div className={`p-8 flex flex-col justify-between h-48 bg-card ${borderBottom ? "border-b border-border" : ""}`}>
     <div className="flex items-center justify-between">
-       <div className="flex items-center gap-3 text-muted-foreground">
+       <div className="flex items-center gap-3 text-foreground/70">
           {icon}
           <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{title}</span>
        </div>
     </div>
     <div className="flex flex-col gap-1">
        <div className="text-5xl font-serif font-bold text-foreground tracking-tight">{value || "-"}</div>
-       <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mt-2">{label}</div>
+       <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-foreground/60 mt-2">{label}</div>
     </div>
   </div>
 );

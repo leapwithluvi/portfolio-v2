@@ -25,6 +25,8 @@ export const HeroSection = () => {
           unoptimized
           className="object-cover opacity-80 dark:opacity-80"
           priority
+          // @ts-expect-error - fetchPriority is supported in modern browsers but not yet in all React types
+          fetchpriority="high"
         />
         <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background" />
       </div>
@@ -79,15 +81,17 @@ export const HeroSection = () => {
           <a
             href="#work"
             className="group w-full sm:w-auto flex items-center justify-center gap-4 px-8 py-3.5 md:px-9 md:py-4 bg-primary text-primary-foreground font-bold tracking-widest uppercase text-[9px] md:text-[10px] hover:scale-105 transition-all duration-300"
+            aria-label="View my works"
           >
             {t.hero.ctaWork}
-            <ArrowDownRight size={14} className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
+            <ArrowDownRight size={14} className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" aria-hidden="true" />
           </a>
           <a
             href={profile.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group w-full sm:w-auto flex items-center justify-center gap-4 px-8 py-3.5 md:px-9 md:py-4 border border-foreground/20 bg-background/20 backdrop-blur-md text-foreground font-bold tracking-widest uppercase text-[9px] md:text-[10px] hover:bg-foreground hover:text-background hover:scale-105 transition-all duration-300 shadow-xl shadow-black/5"
+            className="group w-full sm:w-auto flex items-center justify-center gap-4 px-8 py-3.5 md:px-9 md:py-4 border border-foreground/30 bg-background/20 backdrop-blur-md text-foreground font-bold tracking-widest uppercase text-[9px] md:text-[10px] hover:bg-foreground hover:text-background hover:scale-105 transition-all duration-300 shadow-xl shadow-black/5"
+            aria-label="View my resume"
           >
             {t.hero.ctaResume}
           </a>

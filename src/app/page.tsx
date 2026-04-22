@@ -1,14 +1,17 @@
 "use client"
  
+import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
-import { ExperienceSection } from "@/components/sections/ExperienceSection";
-import { SkillsSection } from "@/components/sections/SkillsSection";
-import { ProjectSection } from "@/components/sections/ProjectSection";
-import { GithubSection } from "@/components/sections/GithubSection";
-import { CertificateSection } from "@/components/sections/CertificateSection";
-import { ContactSection } from "@/components/sections/ContactSection";
 import Reveal from "@/components/ui/Reveal";
+
+// Lazy load sections below the fold for performance
+const ExperienceSection = dynamic(() => import("@/components/sections/ExperienceSection").then(mod => mod.ExperienceSection), { ssr: false });
+const SkillsSection = dynamic(() => import("@/components/sections/SkillsSection").then(mod => mod.SkillsSection), { ssr: false });
+const ProjectSection = dynamic(() => import("@/components/sections/ProjectSection").then(mod => mod.ProjectSection), { ssr: false });
+const GithubSection = dynamic(() => import("@/components/sections/GithubSection").then(mod => mod.GithubSection), { ssr: false });
+const CertificateSection = dynamic(() => import("@/components/sections/CertificateSection").then(mod => mod.CertificateSection), { ssr: false });
+const ContactSection = dynamic(() => import("@/components/sections/ContactSection").then(mod => mod.ContactSection), { ssr: false });
  
 export default function Home() {
   return (

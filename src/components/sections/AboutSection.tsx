@@ -32,6 +32,7 @@ export const AboutSection = () => {
                   src={profile.image} 
                   alt={profile.name} 
                   fill 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 452px"
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   priority
                 />
@@ -46,10 +47,12 @@ export const AboutSection = () => {
           <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-4">
-                <span className="text-[10px] font-mono text-accent uppercase tracking-[0.5em]">{t.about.badge}</span>
-                <div className="h-px w-12 bg-accent/30" />
+                <div className="w-10 h-px bg-accent" />
+                <div className="text-[10px] font-mono text-accent uppercase tracking-widest">
+                  {t.about.badge} / 01
+                </div>
               </div>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground leading-[1.1] tracking-tighter">
+              <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground leading-tight tracking-tight">
                 {t.about.title}
               </h2>
             </div>
@@ -66,17 +69,17 @@ export const AboutSection = () => {
             {/* Phases / Briefs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8 border-t border-border/50">
                <div className="flex flex-col gap-4">
-                  <div className="text-[10px] font-mono text-accent/50 uppercase tracking-widest">{t.about.phase1}</div>
+                  <div className="text-[10px] font-mono text-accent uppercase tracking-widest font-bold">{t.about.phase1}</div>
                   <h4 className="text-base font-bold tracking-tight uppercase">{t.about.phase1Title}</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {t.about.phase1Desc}
                   </p>
                </div>
                <div className="flex flex-col gap-4">
-                  <div className="text-[10px] font-mono text-accent/50 uppercase tracking-widest">{t.about.phase2}</div>
+                  <div className="text-[10px] font-mono text-accent uppercase tracking-widest font-bold">{t.about.phase2}</div>
                   <h4 className="text-base font-bold tracking-tight uppercase">{t.about.phase2Title}</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                     {t.about.phase2Desc}
+                    {t.about.phase2Desc}
                   </p>
                </div>
             </div>

@@ -57,7 +57,7 @@ export const Navbar: React.FC = () => {
     }
 
     // Force a reflow
-    window.getComputedStyle(css).opacity;
+    void window.getComputedStyle(css).opacity;
     // Remove the style tag to re-enable transitions
     document.head.removeChild(css);
   };
@@ -97,16 +97,17 @@ export const Navbar: React.FC = () => {
             <button
               onClick={toggleTheme}
               className="p-2 border border-border hover:bg-foreground hover:text-background transition-colors"
-              aria-label="Toggle Theme"
+              aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             >
               {isDark ? <Sun size={14} /> : <Moon size={14} />}
             </button>
             
             <a
               href={`mailto:${socials.find(s => s.name === "Email")?.href.replace('mailto:', '') || "@"}`}
-              className="px-6 py-2 bg-primary text-primary-foreground text-[9px] font-bold uppercase tracking-widest hover:opacity-90 transition-all"
+              className="px-6 py-2 bg-primary text-primary-foreground text-[9px] font-bold uppercase tracking-widest hover:brightness-110 transition-all shadow-lg shadow-primary/10"
+              aria-label="Send me an email to connect"
             >
-              {t.nav.connect}
+              CONNECT
             </a>
           </div>
  

@@ -12,7 +12,7 @@ export const ProjectSection: React.FC = () => {
       <div className="max-container">
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-16 md:mb-24">
           <div className="flex flex-col gap-10 max-w-4xl">
-            <div className="text-label text-accent">{t.projects.badge}</div>
+            <div className="text-label text-accent font-bold uppercase tracking-widest">{t.projects.badge}</div>
             <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground leading-[1.1] tracking-tighter">
               {t.projects.title}
             </h2>
@@ -20,7 +20,7 @@ export const ProjectSection: React.FC = () => {
               {t.projects.description}
             </p>
           </div>
-          <div className="text-meta opacity-30 text-right uppercase tracking-[0.5em] hidden lg:block">
+          <div className="text-meta opacity-60 text-right uppercase tracking-[0.5em] hidden lg:block">
             Curated <br /> Selected_Architectures
           </div>
         </div>
@@ -28,26 +28,26 @@ export const ProjectSection: React.FC = () => {
         {/* Featured Selection Label */}
         <div className="mb-8 flex items-center gap-4">
            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">{t.projects.featured}</div>
-           <div className="h-px w-12 bg-accent/50" />
+           <div className="h-px w-12 bg-accent/50" aria-hidden="true" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
           {projects.slice(0, 2).map((project, index) => (
             <motion.div 
               key={project.nameProject}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: typeof window !== 'undefined' && window.innerWidth < 768 ? 0 : 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
               className="bg-background group relative aspect-square md:aspect-4/3 overflow-hidden flex flex-col p-8 md:p-12 hover:bg-muted/5 transition-all duration-700 hover:scale-[1.01] hover:shadow-2xl hover:shadow-accent/5"
             >
-               <div className="absolute top-8 right-8 text-meta opacity-30 group-hover:opacity-100 transition-opacity">
+               <div className="absolute top-8 right-8 text-meta opacity-30 group-hover:opacity-100 transition-opacity" aria-hidden="true">
                  0{index + 1}
                </div>
                
                <div className="flex flex-col gap-6 mt-auto">
                  <div className="flex flex-col gap-2">
-                    <div className="text-meta uppercase tracking-widest text-accent/60">{project.classification}</div>
+                    <div className="text-meta uppercase tracking-widest text-accent font-bold">{project.classification}</div>
                     <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold group-hover:text-accent transition-colors leading-none tracking-tighter">
                       {project.nameProject}
                     </h3>
@@ -63,6 +63,7 @@ export const ProjectSection: React.FC = () => {
                      target="_blank" 
                      rel="noopener noreferrer"
                      className="text-label text-[10px] border-b border-border pb-1 hover:text-accent hover:border-accent transition-all font-bold uppercase tracking-[0.2em]"
+                     aria-label={`View ${project.nameProject} source code on GitHub`}
                    >
                      {t.projects.inspect}
                    </a>
@@ -75,13 +76,13 @@ export const ProjectSection: React.FC = () => {
         {/* Technical Architecture Inventory (Table View) */}
         <div className="mt-16 md:mt-32">
           <div className="flex items-center gap-4 mb-8 md:mb-10">
-             <div className="text-meta opacity-30 uppercase tracking-[0.3em]">{t.projects.inventory}</div>
-             <div className="h-px flex-1 bg-border/50" />
+             <div className="text-meta opacity-60 uppercase tracking-[0.3em]">{t.projects.inventory}</div>
+             <div className="h-px flex-1 bg-border/50" aria-hidden="true" />
           </div>
           
           <div className="flex flex-col border-t border-border">
             {/* Header - Hidden on Mobile */}
-            <div className="hidden lg:grid grid-cols-12 gap-4 py-6 border-b border-border text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 px-4">
+            <div className="hidden lg:grid grid-cols-12 gap-4 py-6 border-b border-border text-[10px] font-bold uppercase tracking-[0.2em] opacity-60 px-4">
               <div className="col-span-1">{t.projects.year}</div>
               <div className="col-span-4">{t.projects.projectTitle}</div>
               <div className="col-span-2">{t.projects.classification}</div>
@@ -89,15 +90,16 @@ export const ProjectSection: React.FC = () => {
               <div className="col-span-1 text-right">{t.projects.source}</div>
             </div>
 
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <motion.div 
                 key={project.nameProject}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, y: typeof window !== 'undefined' && window.innerWidth < 768 ? 0 : 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
                 className="group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 py-4 md:py-6 border-b border-border items-center hover:bg-muted/30 transition-all px-4"
               >
-                <div className="lg:col-span-1 font-mono text-[10px] opacity-40 group-hover:opacity-100 transition-opacity">
+                <div className="lg:col-span-1 font-mono text-[10px] opacity-60 group-hover:opacity-100 transition-opacity">
                   {project.year}
                 </div>
                 
@@ -105,21 +107,21 @@ export const ProjectSection: React.FC = () => {
                   <h4 className="text-sm font-bold uppercase tracking-tight group-hover:text-accent transition-colors">
                     {project.nameProject}
                   </h4>
-                  <div className="lg:hidden text-[10px] opacity-40 uppercase tracking-widest">{project.classification}</div>
+                  <div className="lg:hidden text-[10px] opacity-60 uppercase tracking-widest font-medium">{project.classification}</div>
                 </div>
 
-                <div className="hidden lg:flex lg:col-span-2 text-[10px] uppercase tracking-widest opacity-60">
+                <div className="hidden lg:flex lg:col-span-2 text-[10px] uppercase tracking-widest opacity-80 font-medium">
                   {project.classification}
                 </div>
 
                 <div className="lg:col-span-4 flex flex-wrap gap-x-4 gap-y-1">
                   {project.stacks.slice(0, 4).map((stack) => (
-                    <span key={stack} className="text-[10px] font-mono opacity-30 group-hover:opacity-100 transition-opacity">
+                    <span key={stack} className="text-[10px] font-mono opacity-60 group-hover:opacity-100 transition-opacity">
                       /{stack.replace(/\s+/g, '_')}
                     </span>
                   ))}
                   {project.stacks.length > 4 && (
-                    <span className="text-[10px] font-mono opacity-20">+{project.stacks.length - 4}</span>
+                    <span className="text-[10px] font-mono opacity-40">+{project.stacks.length - 4}</span>
                   )}
                 </div>
 
@@ -129,8 +131,9 @@ export const ProjectSection: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 border border-border/50 hover:bg-foreground hover:text-background transition-colors"
+                    aria-label={`Inspect ${project.nameProject} source code`}
                   >
-                    <ArrowDownRight size={12} className="-rotate-45" />
+                    <ArrowDownRight size={12} className="-rotate-45" aria-hidden="true" />
                   </a>
                 </div>
               </motion.div>
@@ -150,9 +153,10 @@ export const ProjectSection: React.FC = () => {
             <a 
               href="#contact" 
               className="group flex items-center gap-4 px-10 py-5 bg-primary text-primary-foreground font-bold tracking-[0.2em] uppercase text-[10px] hover:opacity-90 transition-all duration-500"
+              aria-label="Navigate to contact section"
             >
               {t.contact.getInTouch}
-              <ArrowDownRight size={16} className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
+              <ArrowDownRight size={16} className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" aria-hidden="true" />
             </a>
           </div>
         </div>

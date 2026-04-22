@@ -89,8 +89,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://cdn.simpleicons.org" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.github.com" />
+        <link rel="dns-prefetch" href="https://api.github.com" />
+        <link rel="preconnect" href="https://giffiles.alphacoders.com" />
+        <link rel="dns-prefetch" href="https://giffiles.alphacoders.com" />
         {/* Anti-Flicker Theme Script */}
         <Script id="show-theme">
           {`
