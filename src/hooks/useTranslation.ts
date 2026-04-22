@@ -7,8 +7,8 @@ import { id } from "@/data/translations/id";
 export type TranslationType = typeof en;
 
 export const useTranslation = () => {
-  const { lang } = useLanguage();
+  const { lang, toggleLang, setLang } = useLanguage();
   const t: TranslationType = lang === "en" ? en : id;
   
-  return { t, lang };
+  return { t, lang, toggleLang, setLang };
 };

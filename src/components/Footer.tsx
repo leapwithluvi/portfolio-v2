@@ -1,9 +1,9 @@
 "use client"
 
 import { profile } from "@/data/profile";
-import { socials } from "@/data/socials";
 import { navLinks } from "@/data/navigation";
-import { Linkedin, Github, Instagram, Mail, ArrowUpRight } from "lucide-react";
+import { socials } from "@/data/socials";
+import { Linkedin, Github, Instagram, Mail, ArrowUpRight, Twitter } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import Image from "next/image";
 
@@ -11,16 +11,19 @@ export const Footer = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
   
-  // Icon Mapping
+  // Icon Mapping for socials.ts data
   const getSocialIcon = (name: string) => {
-    switch (name.toLowerCase()) {
+    switch (name.toLowerCase()) { 
       case "linkedin": return <Linkedin size={16} aria-hidden="true" />;
       case "github": return <Github size={16} aria-hidden="true" />;
       case "instagram": return <Instagram size={16} aria-hidden="true" />;
       case "email": return <Mail size={16} aria-hidden="true" />;
+      case "x": return <Twitter size={16} aria-hidden="true" />;
       default: return <ArrowUpRight size={16} aria-hidden="true" />;
     }
   };
+
+  const userEmail = socials.find(s => s.name.toLowerCase() === "email")?.href.replace("mailto:", "") || "itsluvi13@gmail.com";
   
   return (
     <footer className="relative w-full bg-background border-t border-border pt-32 pb-16 overflow-hidden">
@@ -49,13 +52,13 @@ export const Footer = () => {
         </div>
 
         {/* Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border shadow-2xl shadow-accent/5">
-          <div className="bg-background p-10 md:p-12 flex flex-col gap-8 group">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30 border border-border/50 shadow-2xl shadow-accent/5 overflow-hidden">
+          <div className="bg-background/40 backdrop-blur-md p-8 md:p-12 flex flex-col gap-8 group">
              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">{t.footer.navigation}</div>
              <ul className="flex flex-col gap-4">
                {navLinks.map((link) => (
                  <li key={link.name}>
-                   <a href={link.href} className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-all flex items-center gap-2 group/link">
+                   <a href={link.href} className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-all flex items-center gap-2 group/link">
                      <span className="w-0 group-hover/link:w-3 h-px bg-accent transition-all" aria-hidden="true" />
                      {(t.nav as Record<string, string>)[link.name.toLowerCase()]}
                    </a>
@@ -64,50 +67,57 @@ export const Footer = () => {
              </ul>
           </div>
           
-          <div className="bg-background p-10 md:p-12 flex flex-col gap-8">
+          <div className="bg-background/40 backdrop-blur-md p-8 md:p-12 flex flex-col gap-8">
              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">{t.footer.presence}</div>
              <ul className="flex flex-col gap-6">
-               <li className="flex flex-col gap-2">
-                 <span className="text-base font-bold font-serif">{t.footer.discipline1}</span>
-                 <span className="text-[10px] uppercase text-muted-foreground tracking-widest leading-relaxed font-medium">Next.js, Express.js, TypeScript</span>
-               </li>
-               <li className="flex flex-col gap-2">
-                 <span className="text-base font-bold font-serif">{t.footer.discipline2}</span>
-                 <span className="text-[10px] uppercase text-muted-foreground tracking-widest leading-relaxed font-medium">Python, TensorFlow, PyTorch</span>
-               </li>
+                <li className="flex flex-col gap-1 md:gap-2">
+                  <span className="text-xs md:text-base font-bold font-serif">{t.footer.discipline1}</span>
+                  <span className="text-[8px] md:text-[10px] uppercase text-muted-foreground tracking-widest leading-relaxed font-medium">Next.js, Express.js, TypeScript</span>
+                </li>
+                <li className="flex flex-col gap-1 md:gap-2">
+                  <span className="text-xs md:text-base font-bold font-serif">{t.footer.discipline2}</span>
+                  <span className="text-[8px] md:text-[10px] uppercase text-muted-foreground tracking-widest leading-relaxed font-medium">PostgreSQL, Prisma, MongoDB</span>
+                </li>
              </ul>
           </div>
- 
-          <div className="bg-background p-10 md:p-12 flex flex-col gap-8">
-             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">{t.footer.connect}</div>
-             <div className="grid grid-cols-2 gap-4">
-                {socials.map((social) => (
-                  <a 
-                    key={social.name} 
-                    href={social.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center gap-3 text-[11px] font-bold tracking-widest text-muted-foreground hover:text-accent transition-all group/soc"
+
+          <div className="bg-background/40 backdrop-blur-md p-8 md:p-12 flex flex-col gap-10">
+            <div className="flex flex-col gap-8">
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">{t.footer.connect}</div>
+              <div className="flex flex-wrap gap-4 md:gap-6">
+                {socials.filter(s => s.name.toLowerCase() !== "email").map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center border border-border/50 hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500 rounded-full"
                     aria-label={`Connect on ${social.name}`}
                   >
-                    <div className="p-2 border border-border group-hover/soc:border-accent group-hover/soc:bg-accent/5 transition-all">
-                      {getSocialIcon(social.name)}
-                    </div>
-                    <span className="hidden sm:inline">{social.name}</span>
+                    {getSocialIcon(social.name)}
                   </a>
                 ))}
-             </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-2 mt-auto">
+               <div className="text-[8px] md:text-[9px] font-mono uppercase tracking-widest text-muted-foreground opacity-60">Direct_Channel</div>
+               <a href={`mailto:${userEmail}`} className="text-[10px] md:text-sm font-bold hover:text-accent transition-colors break-all">
+                 {userEmail}
+               </a>
+            </div>
           </div>
         </div>
- 
-        {/* Final Copyright */}
-        <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-border gap-8 px-4 md:px-0">
-           <div className="text-[10px] font-bold opacity-80 uppercase tracking-[0.4em]">
-             &copy; {currentYear} {profile.name} — {t.footer.rights}
-           </div>
-           <div className="text-[10px] font-bold opacity-80 uppercase tracking-[0.4em] hover:opacity-100 transition-opacity">
-             {t.footer.credit}
-           </div>
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-border/30">
+          <div className="text-[10px] font-mono opacity-40 uppercase tracking-widest">
+            © {currentYear} {profile.logoName}. All Rights Reserved.
+          </div>
+          <div className="flex gap-8">
+            <span className="text-[10px] font-mono opacity-40 uppercase tracking-widest">v4.2.0_Stable</span>
+            <span className="text-[10px] font-mono opacity-40 uppercase tracking-widest">Designed_by_Luvi</span>
+          </div>
         </div>
       </div>
     </footer>

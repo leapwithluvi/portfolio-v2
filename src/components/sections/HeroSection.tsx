@@ -79,7 +79,7 @@ export const HeroSection = () => {
         >
           <a
             href="#work"
-            className="group w-full sm:w-auto flex items-center justify-center gap-4 px-8 py-3.5 md:px-9 md:py-4 bg-primary text-primary-foreground font-bold tracking-widest uppercase text-[9px] md:text-[10px] hover:scale-105 transition-all duration-300"
+            className="group w-full sm:w-auto flex items-center justify-center gap-4 px-8 py-3.5 md:px-9 md:py-4 bg-primary text-primary-foreground font-bold tracking-widest uppercase text-[9px] md:text-[10px] hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"
             aria-label="View my works"
           >
             {t.hero.ctaWork}

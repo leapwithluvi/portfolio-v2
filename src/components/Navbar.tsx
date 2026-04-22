@@ -1,38 +1,43 @@
-"use client"
- 
+"use client";
+
 import { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { Menu, X, Sun, Moon, Globe } from "lucide-react";
 import { profile } from "@/data/profile";
 import { navLinks } from "@/data/navigation";
-import { socials } from "@/data/socials";
-import { LanguageToggle } from "./LanguageToggle";
 import { useTranslation } from "@/hooks/useTranslation";
- 
-export const Navbar: React.FC = () => {
-  const { t } = useTranslation();
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [isDark, setIsDark] = useState<boolean>(false);
- 
-  useEffect(() => {
-    // Check theme on mount
-    const frame = requestAnimationFrame(() => {
-      const isDarkTheme = document.documentElement.classList.contains("dark");
-      setIsDark(isDarkTheme);
-    });
 
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", handleScroll);
+export const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const { t, lang, setLang, toggleLang } = useTranslation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
     };
+    window.addEventListener("scroll", handleScroll);
+    
+    // Theme initialization
+    const theme = localStorage.getItem("theme");
+    const isLightTheme = theme === "light";
+    
+    requestAnimationFrame(() => {
+      if (isLightTheme) {
+        setIsDark(false);
+        document.documentElement.classList.remove("dark");
+      } else {
+        setIsDark(true);
+        document.documentElement.classList.add("dark");
+      }
+    });
+    
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
- 
+
   const toggleTheme = () => {
-    // Optimization: Disable transitions temporarily to prevent lag
-    const css = document.createElement('style');
+    const css = document.createElement("style");
     css.appendChild(
       document.createTextNode(
         `* {
@@ -56,12 +61,10 @@ export const Navbar: React.FC = () => {
       localStorage.setItem("theme", "light");
     }
 
-    // Force a reflow
     void window.getComputedStyle(css).opacity;
-    // Remove the style tag to re-enable transitions
     document.head.removeChild(css);
   };
- 
+
   return (
     <>
       <nav
@@ -69,158 +72,136 @@ export const Navbar: React.FC = () => {
           isScrolled ? "bg-background/80 backdrop-blur-sm border-border py-4" : "bg-transparent border-transparent py-8"
         }`}
       >
-        <div className="max-container flex justify-between items-center">
+        <div className="max-container flex justify-between items-center px-4 md:px-0">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2 group">
-            <span className="text-sm font-bold uppercase tracking-widest text-foreground">
+            <span className="text-sm md:text-base font-bold uppercase tracking-widest text-foreground">
               {profile.logoName}
             </span>
           </a>
- 
-          {/* Nav Links */}
-          <div className="hidden lg:flex items-center gap-12">
+
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-label text-[9px] text-muted-foreground hover:text-accent transition-colors relative group py-2 px-1"
+                className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground hover:text-accent transition-colors relative group py-2"
               >
                 {(t.nav as Record<string, string>)[link.name.toLowerCase()]}
-                <span className="absolute bottom-1 left-1 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-1 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
-            
-            <div className="h-4 w-px bg-border" />
-            
-            <LanguageToggle />
-            
-            <button
-              onClick={toggleTheme}
-              className="p-2 border border-border hover:bg-foreground hover:text-background transition-colors"
-              aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-            >
-              {isDark ? <Sun size={14} /> : <Moon size={14} />}
-            </button>
-            
-            <a
-              href={`mailto:${socials.find(s => s.name === "Email")?.href.replace('mailto:', '') || "@"}`}
-              className="px-6 py-2 bg-primary text-primary-foreground text-[9px] font-bold uppercase tracking-widest hover:brightness-110 transition-all shadow-lg shadow-primary/10"
-              aria-label="Send me an email to connect"
-            >
-              CONNECT
-            </a>
+
+            <div className="flex items-center gap-4 border-l border-border pl-10">
+              {/* Language Toggle */}
+              <button
+                onClick={toggleLang}
+                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Toggle language"
+              >
+                <Globe size={14} />
+                {lang.toUpperCase()}
+              </button>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2.5 border border-border text-foreground hover:bg-foreground hover:text-background transition-colors"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            </div>
           </div>
- 
-          {/* Mobile Actions */}
-          <div className="flex lg:hidden items-center gap-4">
-            <LanguageToggle />
-            <button
-              onClick={toggleTheme}
-              className="p-2 border border-border text-foreground transition-colors"
-              aria-label="Toggle Theme"
-            >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-foreground"
-              aria-label="Toggle Menu"
-            >
-              <Menu size={24} />
-            </button>
+
+          {/* Mobile Menu Trigger */}
+          <div className="flex lg:hidden items-center gap-3">
+             <button
+                onClick={toggleTheme}
+                className="p-2 border border-border text-foreground"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+              <button
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="p-2 border border-border text-foreground"
+                aria-label="Open menu"
+              >
+                <Menu size={20} />
+              </button>
           </div>
         </div>
       </nav>
- 
+
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-background z-150 flex flex-col p-6 sm:p-10 lg:hidden overflow-y-auto"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-200 bg-background flex flex-col p-8 md:p-12 lg:hidden"
           >
-            {/* Mobile Menu Header - PERSISTENT */}
-            <div className="flex justify-between items-center mb-8 shrink-0">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-bold uppercase tracking-widest text-foreground">
-                  {profile.logoName}
-                </span>
-                <div className="w-1.5 h-1.5 bg-accent rounded-full" />
+            <div className="flex justify-between items-center mb-12">
+              <div className="text-sm font-bold uppercase tracking-widest text-foreground">
+                {profile.logoName}
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="p-3 border border-border text-foreground hover:bg-foreground hover:text-background transition-colors"
               >
-                <X size={20} />
+                <X size={24} />
               </button>
             </div>
- 
-            {/* Animated Content Sections */}
-            <motion.div 
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col grow"
-            >
-              <div className="flex flex-col gap-3 sm:gap-6 mb-12 grow">
-                <motion.span 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 0.5, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-[10px] items-start flex text-left font-bold uppercase tracking-widest text-accent mb-2"
+
+            <div className="flex flex-col gap-8">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-4xl font-serif font-bold text-foreground hover:text-accent transition-colors flex justify-between items-end group"
                 >
-                  {t.nav.about}
-                </motion.span>
-                <div className="flex flex-col gap-2 sm:gap-4">
-                  {navLinks.map((link, idx) => (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ 
-                        delay: 0.1 + (idx * 0.1), 
-                        duration: 0.5, 
-                        ease: [0.16, 1, 0.3, 1] 
-                      }}
-                    >
-                      <a
-                        href={link.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-2xl sm:text-4xl md:text-5xl font-serif font-bold text-foreground border-b border-border pb-3 hover:text-accent transition-colors text-left block"
-                      >
-                        {(t.nav as Record<string, string>)[link.name.toLowerCase()]}
-                      </a>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-auto grid grid-cols-2 gap-4 pt-8 border-t border-border shrink-0 pb-6"
-              >
-                <button
-                   onClick={() => {
-                     toggleTheme();
-                   }}
-                   className="py-4 border border-border text-[10px] uppercase font-bold tracking-widest text-center flex items-center justify-center gap-2 hover:bg-muted/10 transition-colors"
-                >
-                   {isDark ? <Sun size={12} /> : <Moon size={12} />}
-                   {isDark ? 'Light' : 'Dark'}
-                </button>
-                <a
-                  href={`mailto:${socials.find(s => s.name === "Email")?.href.replace('mailto:', '') || "@"}`}
-                  className="py-4 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest text-center hover:opacity-90 transition-colors flex items-center justify-center"
-                >
-                  {t.nav.connect}
-                </a>
-              </motion.div>
-            </motion.div>
+                  {(t.nav as Record<string, string>)[link.name.toLowerCase()]}
+                  <span className="text-[10px] font-mono opacity-30 group-hover:opacity-100">0{index + 1}</span>
+                </motion.a>
+              ))}
+            </div>
+
+            <div className="mt-auto pt-12 flex flex-col gap-12 border-t border-border">
+               <div className="flex justify-between items-center">
+                  <div className="flex flex-col gap-3">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">Language</div>
+                    <div className="flex gap-6">
+                      {(['en', 'id'] as const).map((l) => (
+                        <button
+                          key={l}
+                          onClick={() => setLang(l)}
+                          className={`text-sm font-bold uppercase tracking-widest ${lang === l ? 'text-foreground' : 'text-muted-foreground'}`}
+                        >
+                          {l === 'en' ? 'English' : 'Bahasa'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <button 
+                    className="px-8 py-4 text-[10px] font-bold tracking-[0.2em] uppercase bg-primary text-primary-foreground hover:opacity-90 transition-all"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    {t.nav.contact}
+                  </button>
+               </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
