@@ -88,7 +88,7 @@ export const Navbar = () => {
                 href={link.href}
                 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground hover:text-accent transition-colors relative group py-2"
               >
-                {(t.nav as Record<string, string>)[link.name.toLowerCase()]}
+                {link.name}
                 <span className="absolute bottom-1 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
@@ -117,7 +117,16 @@ export const Navbar = () => {
 
           {/* Mobile Menu Trigger */}
           <div className="flex lg:hidden items-center gap-3">
-             <button
+              {/* Mobile Language Toggle */}
+              <button
+                onClick={toggleLang}
+                className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground p-2"
+                aria-label="Toggle language"
+              >
+                {lang.toUpperCase()}
+              </button>
+              
+              <button
                 onClick={toggleTheme}
                 className="p-2 border border-border text-foreground"
                 aria-label="Toggle theme"
@@ -168,7 +177,7 @@ export const Navbar = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-4xl font-serif font-bold text-foreground hover:text-accent transition-colors flex justify-between items-end group"
                 >
-                  {(t.nav as Record<string, string>)[link.name.toLowerCase()]}
+                  {link.name}
                   <span className="text-[10px] font-mono opacity-30 group-hover:opacity-100">0{index + 1}</span>
                 </motion.a>
               ))}
