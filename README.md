@@ -13,7 +13,6 @@
 [![Top Language](https://img.shields.io/github/languages/top/leapwithluvi/portfolio-next?logo=github&logoColor=%23007ACC&label=TypeScript)](https://www.typescriptlang.org/)
 ![PRs](https://img.shields.io/badge/PRs-welcome-ff69b4.svg?style=shields)
 ![Status](https://img.shields.io/badge/Status-Active-success)
-![Performance](https://img.shields.io/badge/Lighthouse-100%2F100-success?style=for-the-badge&logo=google-chrome&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployment--Ready-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 ## 🖥️ Live Preview
